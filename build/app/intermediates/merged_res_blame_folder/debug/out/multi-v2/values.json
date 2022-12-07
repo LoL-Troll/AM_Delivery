@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/troll/StudioProjects/am_delivery/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/Users/troll/StudioProjects/AM_Delivery_GIT/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
                     "source": "/Users/troll/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/res/values/values.xml",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/troll/StudioProjects/am_delivery/android/app/src/main/res/values/styles.xml",
+                    "source": "/Users/troll/StudioProjects/AM_Delivery_GIT/android/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
