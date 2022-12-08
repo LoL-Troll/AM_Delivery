@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_db/SendPackageUI.dart';
 
 void main() {
   runApp(const MyApp());
@@ -198,6 +199,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextButton(
                     onPressed: () {
                       //TODO Make it go to the Normal Delivey page/Service
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SendPackageUI(shipType: '',)),
+                      );
                     },
                     child: Row(
                       children: [
@@ -242,6 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextButton(
                     onPressed: () {
                       //TODO Make it go to the Express Delivey page/Service
+
                     },
                     child: Row(
                       children: [
