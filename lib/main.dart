@@ -143,38 +143,36 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50)
-                        ),
-                        hintText: "Enter the Tracking Number",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      hintText: "Enter the Tracking Number",
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Track Now",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Icon(
-                            Icons.arrow_right_alt_sharp,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Track Now",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Icon(
+                          Icons.arrow_right_alt_sharp,
+                          color: Colors.white,
+                        )
+                      ],
                     ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
                   )
                 ],
               ),
               width: 300,
               height: 300,
-
-              ),
+            ),
           ],
         ),
       ),
