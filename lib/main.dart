@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_db/SendPackageUI.dart';
 
 void main() {
   runApp(const MyApp());
@@ -121,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               "Hello, Ahmed",
@@ -133,46 +134,155 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.blue.withOpacity(0.5),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Track Your Package", style: TextStyle(fontSize: 20)),
-                  Text(
-                    "Enter the Tracking Number of your package",
-                    style: TextStyle(color: Colors.black.withOpacity(0.5)),
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      hintText: "Enter the Tracking Number",
+              child: Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "Track Your Package",
+                      style: TextStyle(fontSize: 20),
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                     ),
+                    Text(
+                      "Enter the Tracking Number of your package",
+                      style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        hintText: "Enter the Tracking Number",
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Track Now",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Icon(
+                            Icons.arrow_right_alt_sharp,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                    )
+                  ],
+                ),
+              ),
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.width * 0.9,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "Our Services: ",
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue.withOpacity(0.5),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
+                  child: TextButton(
+                    onPressed: () {
+                      //TODO Make it go to the Normal Delivey page/Service
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SendPackageUI(shipType: '',)),
+                      );
+                    },
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          "Track Now",
-                          style: TextStyle(color: Colors.white),
+                        Image(
+                            image: AssetImage(
+                          "assets/Standard_Delivery.png",
+                        )),
+                        SizedBox(
+                          width: 20,
                         ),
-                        Icon(
-                          Icons.arrow_right_alt_sharp,
-                          color: Colors.white,
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "Normal Shipping",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              Text(
+                                "Deliver Packages from 1-3 days after pickup",
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.5)),
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  )
-                ],
-              ),
-              width: 300,
-              height: 300,
-            ),
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue.withOpacity(0.5),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      //TODO Make it go to the Express Delivey page/Service
+
+                    },
+                    child: Row(
+                      children: [
+                        Image(
+                            image: AssetImage(
+                          "assets/ExpressPackage.png",
+                        )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "Express Shipping",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              Text(
+                                "Deliver Packages overnight after pickup",
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.5)),
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
