@@ -1,16 +1,37 @@
-abstract class User{
+class User {
+  late String? userId;
+  late String? sex;
+  late String? FName;
+  late String? LName;
+  late String? phone;
+  late String? email;
+  late String? password;
+  late String? type;
+  static User? user;
 
-  late int _userId;
-  late String _sex;
-  late String _FName;
-  late String _LName;
-  late String _phone;
-  late String _Email;
-  late String _Password;
-  late String _Type;
+  User(
+      {required this.userId,
+      required this.sex,
+      required this.FName,
+      required this.LName,
+      required this.phone,
+      required this.email,
+      required this.password,
+      required this.type});
 
-  //TODO Create functions for User Class
+  static void craeteObj(Map<String, String?> userInfo) {
+    user ??= User(
+          userId: userInfo["UserID"],
+          sex: userInfo["Sex"],
+          FName: userInfo["Fname"],
+          LName: userInfo["Lname"],
+          phone: userInfo["Phone"],
+          email: userInfo["Email"],
+          password: userInfo["Password"],
+          type: userInfo["Type"]);
+  }
 
-
-
+  static User? getInstance() {
+    return user;
+  }
 }

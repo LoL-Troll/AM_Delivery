@@ -27,6 +27,8 @@ class _SendPackageUI extends State<SendPackageUI> {
   final hieghtController = TextEditingController();
   final weightController = TextEditingController();
   final lengthController = TextEditingController();
+  final resieverPhoneController = TextEditingController();
+
   late String category = "Regular";
 
   Widget build(BuildContext context) {
@@ -66,6 +68,8 @@ class _SendPackageUI extends State<SendPackageUI> {
                     category = value!;
                   });
                 }),
+            //TODO make a limit for the numbers inputed.
+            CustomInputTextField(label: "Resiever phone number", controller: resieverPhoneController),
             // TODO add seperator (reciver information)
             CustomBigButton(
               label: "Confirm",

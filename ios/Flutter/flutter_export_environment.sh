@@ -3,7 +3,7 @@
 export "FLUTTER_ROOT=/Users/troll/Developer/flutter"
 export "FLUTTER_APPLICATION_PATH=/Users/troll/StudioProjects/AM_Delivery_GIT"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
-export "FLUTTER_TARGET=/Users/troll/StudioProjects/AM_Delivery_GIT/lib/main.dart"
+export "FLUTTER_TARGET=/Users/troll/StudioProjects/AM_Delivery_GIT/lib/login_account.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
 export "FLUTTER_BUILD_NUMBER=1"

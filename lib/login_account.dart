@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mysql_client/mysql_client.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
 import 'package:test_db/register_account.dart';
+import 'User.dart';
 import 'database.dart';
+import 'main.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Login());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +87,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 CustomBigButton(
                   label: "Confirm",
-                  onPressed: () {
+                  onPressed: () async {
                     email = emailController.text;
                     password = passwordController.text;
-
-                    Database.getUserID(email: email, password: password);
+                    Map<String, String?> userInfo = await Database.getUser(email: email, password: password);
+                    User.craeteObj(userInfo);
+                    print(User.getInstance()?.phone);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyHomePage(title: '',)),
+                    );
                     //TODO
                   },
                 ),
