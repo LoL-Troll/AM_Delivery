@@ -1,4 +1,4 @@
-#Thu Dec 08 20:00:22 AST 2022
-base.0=/Users/troll/StudioProjects/AM_Delivery_GIT/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+#Fri Dec 09 15:25:17 AST 2022
+base.0=C\:\\Users\\majed\\StudioProjects\\AM_Delivery\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

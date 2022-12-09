@@ -1,29 +1,43 @@
 import 'dart:async';
 import 'package:mysql1/mysql1.dart';
 
-Future main() async {
-  // Open a connection (testdb should already exist)
-  final conn = await MySqlConnection.connect(
-    ConnectionSettings(
+class Database {
+  static Future<MySqlConnection> getConnection() async {
+    var settings = new ConnectionSettings(
         host: 'sql7.freesqldatabase.com',
         port: 3306,
         user: 'sql7581270',
         db: 'sql7581270',
-        password: 'Wbh5iGZkJl'),
-  );
+        password: 'Wbh5iGZkJl');
 
-  var results = await conn.query('''
-  select e.fname, d.Dname
-  from EMPLOYEE e right outer join DEPARTMENT d on e.Dno = d.Dnumber
-  ''');
-
-  var bruh = await conn.query('''
-  INSERT into DEPARTMENT values ("Fu23n", 9966, 987654321, null)
-  ''');
-
-  for (var row in results) {
-    print('Name: ${row[0]}, depratment: ${row[1]}');
+    return await MySqlConnection.connect(settings);
   }
 
-  conn.close();
+  static Future addCustomerUser({
+    required String fName,
+    required String lName,
+    sex = null,
+    required String phone,
+    required String email,
+    required String password,
+  }) async {
+    int id = 2; // TODO
+
+    await getConnection().then((conn) => conn.query("""INSERT INTO USER
+    VALUES($id, '$fName', '$lName', '$sex', '$phone', '$email', '$password', 'Customer')"""));
+    print("A USER WITH NAME $fName $lName BEEN ADDED TO THE DATABASE");
+  }
+
+  static Future<int> getUserID(
+      {required String email, required String password}) async {
+    var result = await getConnection().then((conn) => conn.query("""
+     SELECT UserID
+     FROM USER
+     WHERE Email = '$email' AND Password = '$password';"""));
+
+    print(result.toString());
+    int id = 3; //int.parse(result.toString());
+
+    return id;
+  }
 }
