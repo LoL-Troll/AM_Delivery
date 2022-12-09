@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 CustomInputTextField(
                   label: "Password",
-                  obsureText: true,
+                  obsureText: true, // TODO BROKEN
                   controller: passwordController,
                   inputformatters: [LengthLimitingTextInputFormatter(50)],
                 ), // Password
