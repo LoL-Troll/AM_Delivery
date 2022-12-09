@@ -36,6 +36,7 @@ class _SendPackageUI extends State<SendPackageUI> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            // TODO add seperator (Package information)
             CustomInputTextField(
                 label: "Item Value (in SAR)",
                 controller: itemValController,
@@ -65,34 +66,10 @@ class _SendPackageUI extends State<SendPackageUI> {
                     category = value!;
                   });
                 }),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Confirm",
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      ),
-                      Padding(padding: EdgeInsets.all(5)),
-                      Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 50,
-                      ),
-                    ],
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20))),
-              ),
+            // TODO add seperator (reciver information)
+            CustomBigButton(
+              label: "Confirm",
+              onPressed: () {},
             ),
           ],
         ),

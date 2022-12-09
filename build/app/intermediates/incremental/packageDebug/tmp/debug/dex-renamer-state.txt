@@ -1,4 +1,4 @@
-#Fri Dec 09 14:17:46 AST 2022
+#Fri Dec 09 15:25:17 AST 2022
 base.0=C\:\\Users\\majed\\StudioProjects\\AM_Delivery\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

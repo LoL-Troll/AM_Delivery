@@ -88,51 +88,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   inputformatters: [LengthLimitingTextInputFormatter(50)],
                 ), // Password
                 Padding(padding: EdgeInsets.all(15)),
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      fName = fNameController.text;
-                      lName = lNameController.text;
-                      phone = phoneController.text;
-                      email = emailController.text;
-                      password = passwordController.text;
-                      String sex = gender == "Male" ? "M" : "F";
+                CustomBigButton(
+                  label: "Confirm",
+                  onPressed: () {
+                    fName = fNameController.text;
+                    lName = lNameController.text;
+                    phone = phoneController.text;
+                    email = emailController.text;
+                    password = passwordController.text;
+                    String sex = gender == "Male" ? "M" : "F";
 
-                      // TODO ENCRYPT PASSWORD
-                      Database.addCustomerUser(
-                          fName: fName,
-                          lName: lName,
-                          sex: sex,
-                          phone: phone,
-                          email: email,
-                          password: password);
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Confirm",
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          ),
-                          Padding(padding: EdgeInsets.all(5)),
-                          Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                        ],
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  ),
-                ),
+                    // TODO ENCRYPT PASSWORD
+                    Database.addCustomerUser(
+                        fName: fName,
+                        lName: lName,
+                        sex: sex,
+                        phone: phone,
+                        email: email,
+                        password: password);
+                  },
+                )
               ],
             ),
           ),

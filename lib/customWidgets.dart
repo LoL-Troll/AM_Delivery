@@ -80,3 +80,44 @@ class CustomDropdownButton extends StatelessWidget {
     );
   }
 }
+
+// Big button
+class CustomBigButton extends StatelessWidget {
+  late String label;
+  late void Function() onPressed;
+
+  CustomBigButton({required this.label, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20))),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.1,
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                label,
+                style: TextStyle(color: Colors.white, fontSize: 30),
+              ),
+              Padding(padding: EdgeInsets.all(5)),
+              const Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 50,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

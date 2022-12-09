@@ -68,54 +68,29 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: kCaptionTextStyle,
                     ),
                     TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen()),
-                          );
-                        },
-                        child: Text(
-                          "SIGN UP HERE",
-                          style: kCaptionTextStyle,
-                        ))
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterScreen()),
+                        );
+                      },
+                      child: Text(
+                        "SIGN UP HERE",
+                        style: kCaptionTextStyle,
+                      ),
+                    )
                   ],
                 ),
+                CustomBigButton(
+                  label: "Confirm",
+                  onPressed: () {
+                    email = emailController.text;
+                    password = passwordController.text;
 
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      email = emailController.text;
-                      password = passwordController.text;
-
-                      Database.getUserID(email: email, password: password);
-                      //TODO
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Confirm",
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          ),
-                          Padding(padding: EdgeInsets.all(5)),
-                          Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                        ],
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  ),
+                    Database.getUserID(email: email, password: password);
+                    //TODO
+                  },
                 ),
               ],
             ),
