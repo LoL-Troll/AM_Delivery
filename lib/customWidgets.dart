@@ -70,7 +70,12 @@ class CustomDropdownButton extends StatelessWidget {
             items: items.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(
+                  value,
+                  style: kCaptionTextStyle.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
               );
             }).toList(),
             onChanged: onChanged,
