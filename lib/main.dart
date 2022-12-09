@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_db/EditProfile.dart';
 import 'package:test_db/SendPackageUI.dart';
 
 void main() {
@@ -107,6 +108,10 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
               onPressed: () {
                 //TODO add transition to the Profile screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const EditProfile()),
+                );
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,

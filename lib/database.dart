@@ -18,28 +18,6 @@ class Database {
 
     return conn;
 
-
-    var result = await conn.execute('''
-    select *
-    from USER
-    where Fname = "Majed";
-    ''');
-
-    print(result.numOfColumns);
-    print(result.numOfRows);
-    print(result.lastInsertID);
-    print(result.affectedRows);
-
-    // print query result
-    for (final row in result.rows) {
-      print(row.colAt(2));
-      // print(row.colByName("title"));
-
-      // print all rows as Map<String, String>
-      //print(row.assoc());
-    }
-
-    await conn.close();
   }
 
   static Future addCustomerUser({
