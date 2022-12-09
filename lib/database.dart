@@ -1,29 +1,42 @@
 import 'dart:async';
-import 'package:mysql1/mysql1.dart';
+import 'package:mysql_client/mysql_client.dart';
 
 Future main() async {
   // Open a connection (testdb should already exist)
-  final conn = await MySqlConnection.connect(
-    ConnectionSettings(
-        host: 'sql7.freesqldatabase.com',
-        port: 3306,
-        user: 'sql7581270',
-        db: 'sql7581270',
-        password: 'Wbh5iGZkJl'),
+  final conn = await MySQLConnection.createConnection(
+    host: '193.122.73.150',
+    port: 3306,
+    userName: "Troll",
+    password: "Ics321#@!",
+    databaseName: "sql7581270", // optional
   );
 
-  var results = await conn.query('''
-  select e.fname, d.Dname
-  from EMPLOYEE e right outer join DEPARTMENT d on e.Dno = d.Dnumber
+  await conn.connect();
+
+  print("Connected");
+
+
+
+  var result = await conn.execute('''
+  select *
+  from USER
+  where Fname = "Majed";
   ''');
 
-  var bruh = await conn.query('''
-  INSERT into DEPARTMENT values ("Fu23n", 9966, 987654321, null)
-  ''');
+  print(result.numOfColumns);
+  print(result.numOfRows);
+  print(result.lastInsertID);
+  print(result.affectedRows);
 
-  for (var row in results) {
-    print('Name: ${row[0]}, depratment: ${row[1]}');
+  // print query result
+  for (final row in result.rows) {
+     print(row.colAt(2));
+    // print(row.colByName("title"));
+
+    // print all rows as Map<String, String>
+    //print(row.assoc());
   }
 
-  conn.close();
+  await conn.close();
+
 }
