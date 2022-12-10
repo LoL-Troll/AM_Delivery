@@ -23,18 +23,21 @@ class CustomInputTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(label, textAlign: TextAlign.left),
-        TextField(
-          inputFormatters: inputformatters,
-          keyboardType: keyboardtype,
-          controller: controller,
-          decoration: const InputDecoration(
-            // errorText: "This Field Should Not Be Empty",
-            border: OutlineInputBorder(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, textAlign: TextAlign.left),
+          TextField(
+            inputFormatters: inputformatters,
+            keyboardType: keyboardtype,
+            controller: controller,
+            decoration: const InputDecoration(
+              // errorText: "This Field Should Not Be Empty",
+              border: OutlineInputBorder(),
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
