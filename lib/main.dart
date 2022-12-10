@@ -211,9 +211,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SendPackageUI(
-                                    expressShipping: false,
-                                  )),
+                            builder: (context) => const SendPackageUI(
+                              expressShipping: false,
+                            ),
+                          ),
                         );
                       },
                       child: Row(

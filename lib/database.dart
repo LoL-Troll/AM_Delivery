@@ -91,13 +91,34 @@ class Database {
     WHERE Email = '$email'"""))).rows.first.assoc()["UserID"];
   }
 
-  static Future<Map<String, String?>> getUser(
-      {required String email, required String password}) async {
+  static Future<Map<String, String?>> getUser({required String id}) async {
     var result = await getConnection().then((conn) => conn.execute("""
      SELECT *
      FROM USER
-     WHERE Email = '$email' AND Password = '$password';"""));
+     WHERE id = $id;"""));
+    print(result.rows.first.assoc());
+
+    return result.rows.first.assoc();
+  }
+
+  static Future<Map<String, String?>> getUserMapFromID(
+      {required String id}) async {
+    var result = await getConnection().then((conn) => conn.execute("""
+     SELECT *
+     FROM USER
+     WHERE UserID = $id;"""));
     //TODO Make it so that if the input is incorrect show an alert to the user
+    print(result.rows.first.assoc());
+
+    return result.rows.first.assoc();
+  }
+
+  static Future<Map<String, String?>> getPackage(
+      {required String packageID}) async {
+    var result = await getConnection().then((conn) => conn.execute("""
+     SELECT *
+     FROM PACKAGE
+     WHERE PackageID = $packageID;"""));
     print(result.rows.first.assoc());
 
     return result.rows.first.assoc();
