@@ -3,24 +3,28 @@ import 'package:mysql_client/mysql_client.dart';
 import 'package:test_db/User.dart';
 
 class Database {
+  static late final MySQLConnection conn;
+  static bool initialized = false;
+
   static Future<MySQLConnection> getConnection() async {
     // Open a connection (testdb should already exist)
-    final conn = await MySQLConnection.createConnection(
-      host: '193.122.73.150',
-      port: 3306,
-      userName: "Troll",
-      password: "Ics321#@!",
-      databaseName: "sql7581270", // optional
-    );
+    if (!initialized) {
+      conn = await MySQLConnection.createConnection(
+        host: '193.122.73.150',
+        port: 3306,
+        userName: "Troll",
+        password: "Ics321#@!",
+        databaseName: "sql7581270", // optional
+      );
 
-    await conn.connect();
-    print("Connected");
-
+      initialized = true;
+      await conn.connect();
+      print("Connected");
+    }
     return conn;
-
   }
 
-  static Future addCustomerUser({
+  static Future<String?> addCustomerUser({
     required String fName,
     required String lName,
     sex = null,
@@ -28,11 +32,63 @@ class Database {
     required String email,
     required String password,
   }) async {
-    int id = 2; // TODO
+    await getConnection().then((conn) => conn.execute("""
+    INSERT INTO USER
+    VALUES(0, '$fName', '$lName', '$sex', '$phone', '$email', '$password', 'Customer')"""));
 
-    await getConnection().then((conn) => conn.execute("""INSERT INTO USER
-    VALUES($id, '$fName', '$lName', '$sex', '$phone', '$email', '$password', 'Customer')"""));
-    print("A USER WITH NAME $fName $lName BEEN ADDED TO THE DATABASE");
+    var id = (await getConnection().then((conn) => conn.execute("""
+    SELECT UserID
+    FROM USER
+    WHERE email = '$email'"""))).rows.first.assoc()["UserID"];
+
+    await getConnection().then((conn) => conn.execute("""
+    INSERT INTO CUSTOMER
+    VALUES($id)"""));
+
+    print(
+        "A USER WITH NAME $fName $lName AND ID $id BEEN ADDED TO THE DATABASE");
+
+    return id;
+  }
+
+  static Future addPackage({
+    required int val,
+    required int length,
+    required int width,
+    required int height,
+    required int weight,
+    required String catagory,
+    required bool expressShipping,
+    required String? reciverID,
+  }) async {
+    DateTime deliveryDate = DateTime.now().add(
+      Duration(days: expressShipping ? 5 : 10),
+    );
+    String deliveryDateString =
+        "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}";
+
+    await getConnection().then(
+      (conn) => conn.execute(
+        """
+        INSERT INTO PACKAGE
+        VALUES(0, 'In Transit', '$deliveryDateString', $width, $length, $height,
+        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE)""",
+      ),
+    );
+  }
+
+  static Future<String?> getUserIDFromPhone({required String phone}) async {
+    return (await getConnection().then((conn) => conn.execute("""
+    SELECT UserID
+    FROM USER
+    WHERE Phone = $phone"""))).rows.first.assoc()["UserID"];
+  }
+
+  static Future<String?> getUserIDFromEmail({required String email}) async {
+    return (await getConnection().then((conn) => conn.execute("""
+    SELECT UserID
+    FROM USER
+    WHERE Email = '$email'"""))).rows.first.assoc()["UserID"];
   }
 
   static Future<Map<String, String?>> getUser(
@@ -42,22 +98,24 @@ class Database {
      FROM USER
      WHERE Email = '$email' AND Password = '$password';"""));
     //TODO Make it so that if the input is incorrect show an alert to the user
-    print(result.toString());
-    int id = 3; //int.parse(result.toString());
+    print(result.rows.first.assoc());
 
     return result.rows.first.assoc();
   }
 
-  static Future addPackage({
-    required int val,
-    required int length,
-    required int width,
-    required int height,
-    required int weight,
-    required String category,
-    required int resPhoneNum,
-    required
-  }) async {
+  static Future modifyCustomerUser(User user) async {
+    String? id = user.userId,
+        fName = user.FName,
+        lName = user.LName,
+        email = user.email,
+        phone = user.phone,
+        sex = user.sex;
 
+    var x = await getConnection().then((conn) => conn.execute("""
+    UPDATE USER
+    SET FName = '$fName', LName = '$lName', sex = '$sex', email = '$email', Phone = $phone
+    WHERE UserID = $id"""));
+    print(x.rows.length);
+    print("USER WITH NAME $fName $lName and ID $id BEEN MODIFIED");
   }
 }

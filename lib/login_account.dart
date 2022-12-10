@@ -44,12 +44,18 @@ class _LoginScreenState extends State<LoginScreen> {
           centerTitle: true,
         ),
         // backgroundColor: kLightColor,
-        body: SingleChildScrollView(
-          child: Container(
+        body: Center(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Image(
+                  height: 150,
+                  image: AssetImage(
+                    "assets/Standard_Delivery.png",
+                  ),
+                ), // TODO LOGO
                 CustomInputTextField(
                   label: "Email",
                   controller: emailController,
@@ -62,7 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: passwordController,
                   inputformatters: [LengthLimitingTextInputFormatter(50)],
                 ), // Password
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -90,12 +95,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () async {
                     email = emailController.text;
                     password = passwordController.text;
-                    Map<String, String?> userInfo = await Database.getUser(email: email, password: password);
+                    Map<String, String?> userInfo = await Database.getUser(
+                        email: email, password: password);
                     User.craeteObj(userInfo);
-                    print(User.getInstance()?.phone);
+                    print(User.getInstance().phone);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyHomePage(title: '',)),
+                      MaterialPageRoute(
+                          builder: (context) => const MyHomePage()),
                     );
                     //TODO
                   },

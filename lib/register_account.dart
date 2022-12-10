@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
+import 'User.dart';
 import 'database.dart';
 
 void main() {
@@ -32,7 +33,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final phoneController = TextEditingController();
 
-  late String fName, lName, gender = "Male", email, password, phone;
+  late String fName, lName, email, password, phone;
+  String gender = "Male";
 
   @override
   Widget build(BuildContext context) {

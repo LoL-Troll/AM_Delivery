@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:test_db/EditProfile.dart';
 import 'package:test_db/SendPackageUI.dart';
 
+import 'User.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,13 +28,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -42,8 +44,6 @@ class MyHomePage extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -130,10 +130,13 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                "Hello, Ahmed",
-                //TODO Make it so that the user Fname is displayed here
-                style: TextStyle(fontSize: 30),
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  "Hello, ${User.getInstance().FName}",
+                  //TODO Make it so that the user Fname is displayed here
+                  style: TextStyle(fontSize: 30),
+                ),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -207,7 +210,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         //TODO Make it go to the Normal Delivey page/Service
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const SendPackageUI(shipType: '',)),
+                          MaterialPageRoute(
+                              builder: (context) => const SendPackageUI(
+                                    expressShipping: false,
+                                  )),
                         );
                       },
                       child: Row(
@@ -253,7 +259,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextButton(
                       onPressed: () {
                         //TODO Make it go to the Express Delivey page/Service
-
                       },
                       child: Row(
                         children: [
