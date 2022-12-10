@@ -95,10 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () async {
                     email = emailController.text;
                     password = passwordController.text;
-                    Map<String, String?> userInfo = await Database.getUser(
+                    Map<String, String?> userInfo = await Database.loginUser(
                         email: email, password: password);
+
                     User.craeteObj(userInfo);
-                    print(User.getInstance().phone);
                     Navigator.push(
                       context,
                       MaterialPageRoute(

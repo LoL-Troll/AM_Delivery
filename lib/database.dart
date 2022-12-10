@@ -51,7 +51,7 @@ class Database {
     return id;
   }
 
-  static Future addPackage({
+  static Future<String?> addPackage({
     required int val,
     required int length,
     required int width,
@@ -75,6 +75,25 @@ class Database {
         $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE)""",
       ),
     );
+
+    var x = (await getConnection().then((conn) => conn.execute("""
+    SELECT max(PackageID)
+    FROM PACKAGE"""))).rows.first.assoc();
+    print("WwfWFWF");
+    print(x["PackageID"]);
+
+    var packageID = (await getConnection().then((conn) => conn.execute("""
+    SELECT max(PackageID)
+    FROM PACKAGE"""))).rows.first.assoc()["max(PackageID)"];
+    return packageID;
+  }
+
+  static Future<Map<String, String?>> loginUser(
+      {required String email, required String password}) async {
+    return (await getConnection().then((conn) => conn.execute("""
+    SELECT *
+    FROM USER
+    WHERE email = '$email' AND password = '$password'"""))).rows.first.assoc();
   }
 
   static Future<String?> getUserIDFromPhone({required String phone}) async {
@@ -91,13 +110,23 @@ class Database {
     WHERE Email = '$email'"""))).rows.first.assoc()["UserID"];
   }
 
-  static Future<Map<String, String?>> getUser(
-      {required String email, required String password}) async {
+  static Future<Map<String, String?>> getUser({required String id}) async {
     var result = await getConnection().then((conn) => conn.execute("""
      SELECT *
      FROM USER
-     WHERE Email = '$email' AND Password = '$password';"""));
-    //TODO Make it so that if the input is incorrect show an alert to the user
+     WHERE UserID = $id;"""));
+    print(result.rows.first.assoc());
+
+    return result.rows.first.assoc();
+  }
+
+  static Future<Map<String, String?>> getPackage(
+      {required String packageID}) async {
+    var result = await getConnection().then((conn) => conn.execute("""
+     SELECT *
+     FROM PACKAGE
+     WHERE PackageID = $packageID;"""));
+    print("DB");
     print(result.rows.first.assoc());
 
     return result.rows.first.assoc();

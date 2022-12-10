@@ -16,6 +16,8 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   mysql_client: ^0.0.27
+  barcode_widget: ^2.0.3
+
 
 dev_dependencies:
   flutter_test:

@@ -137,3 +137,28 @@ class CustomBigButton extends StatelessWidget {
     );
   }
 }
+
+class CustomLabel extends StatelessWidget {
+  late String title, label;
+
+  CustomLabel({required this.title, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: kHeading1TextStyle,
+          ),
+          Text(
+            label,
+            style: kHeading2TextStyle,
+          ),
+        ],
+      ),
+    );
+  }
+}

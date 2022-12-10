@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:test_db/PackageSummury.dart';
 import 'package:test_db/constants.dart';
 import 'customWidgets.dart';
 import 'database.dart';
@@ -19,7 +22,7 @@ class SendPackageUI extends StatefulWidget {
   final bool expressShipping;
 
   @override
-  State createState() => _SendPackageUI();
+  State createState() => _SendPackageUI(expressShipping: expressShipping);
 }
 
 class _SendPackageUI extends State<SendPackageUI> {
@@ -32,11 +35,16 @@ class _SendPackageUI extends State<SendPackageUI> {
   final resieverPhoneController = TextEditingController();
 
   late String category = "Regular";
+  late bool expressShipping;
+
+  _SendPackageUI({required this.expressShipping});
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Send a Package To a Customer"),
+        title: Text(
+          "Send a Package To a Customer ${expressShipping ? "(Express)" : "(Regular)"}",
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -91,15 +99,27 @@ class _SendPackageUI extends State<SendPackageUI> {
               onPressed: () async {
                 String? reciverID = await Database.getUserIDFromPhone(
                     phone: resieverPhoneController.text);
-                Database.addPackage(
+
+                print("111111111");
+                String? packageID = await Database.addPackage(
                     val: int.parse(itemValController.text),
                     length: int.parse(lengthController.text),
                     width: int.parse(widthController.text),
                     height: int.parse(hieghtController.text),
                     weight: int.parse(weightController.text),
                     catagory: category,
-                    expressShipping: false, //TODO
+                    expressShipping: expressShipping, //TODO
                     reciverID: reciverID);
+
+                print("HERE?");
+                print(packageID);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PackageSummury(packageID: packageID!)),
+                );
+                print("ORE HERE?");
               },
             ),
           ],
