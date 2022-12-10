@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:test_db/constants.dart';
 import 'customWidgets.dart';
+import 'database.dart';
 
 class SendPackageUI extends StatefulWidget {
-  const SendPackageUI({super.key, required this.shipType});
+  const SendPackageUI({super.key, required this.expressShipping});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -14,7 +16,7 @@ class SendPackageUI extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String shipType;
+  final bool expressShipping;
 
   @override
   State createState() => _SendPackageUI();
@@ -33,30 +35,36 @@ class _SendPackageUI extends State<SendPackageUI> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Send a Package To a Customer"),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // TODO add seperator (Package information)
+            Text(
+              "Package Information",
+              style: kHeading1TextStyle,
+            ),
             CustomInputTextField(
-                label: "Item Value (in SAR)",
+                label: "Item Value (SAR)",
                 controller: itemValController,
                 keyboardtype: TextInputType.number),
             CustomInputTextField(
-                label: "Item Length",
+                label: "Item Length (cm)",
                 controller: lengthController,
                 keyboardtype: TextInputType.number),
             CustomInputTextField(
-                label: "Item Width",
+                label: "Item Width (cm)",
                 controller: widthController,
                 keyboardtype: TextInputType.number),
             CustomInputTextField(
-                label: "Item Height",
+                label: "Item Height (cm)",
                 controller: hieghtController,
                 keyboardtype: TextInputType.number),
             CustomInputTextField(
-                label: "Item Weight",
+                label: "Item Weight (KG)",
                 controller: weightController,
                 keyboardtype: TextInputType.number),
             CustomDropdownButton(
@@ -69,11 +77,30 @@ class _SendPackageUI extends State<SendPackageUI> {
                   });
                 }),
             //TODO make a limit for the numbers inputed.
-            CustomInputTextField(label: "Resiever phone number", controller: resieverPhoneController),
+            Text(
+              "Receiver Information",
+              style: kHeading1TextStyle,
+            ),
+            CustomInputTextField(
+                label: "Receiver phone number",
+                controller: resieverPhoneController),
             // TODO add seperator (reciver information)
+
             CustomBigButton(
               label: "Confirm",
-              onPressed: () {},
+              onPressed: () async {
+                String? reciverID = await Database.getUserIDFromPhone(
+                    phone: resieverPhoneController.text);
+                Database.addPackage(
+                    val: int.parse(itemValController.text),
+                    length: int.parse(lengthController.text),
+                    width: int.parse(widthController.text),
+                    height: int.parse(hieghtController.text),
+                    weight: int.parse(weightController.text),
+                    catagory: category,
+                    expressShipping: false, //TODO
+                    reciverID: reciverID);
+              },
             ),
           ],
         ),

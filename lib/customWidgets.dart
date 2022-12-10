@@ -26,8 +26,13 @@ class CustomInputTextField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, textAlign: TextAlign.left),
+          Text(
+            label,
+            textAlign: TextAlign.left,
+            style: kCaptionTextStyle,
+          ),
           TextField(
+            style: kCaptionTextStyle,
             inputFormatters: inputformatters,
             keyboardType: keyboardtype,
             controller: controller,
@@ -63,7 +68,10 @@ class CustomDropdownButton extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title),
+          Text(
+            title,
+            style: kCaptionTextStyle,
+          ),
           DropdownButtonFormField<String>(
             decoration: InputDecoration(
               border: const OutlineInputBorder(),

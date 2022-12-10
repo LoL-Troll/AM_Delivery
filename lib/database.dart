@@ -57,10 +57,39 @@ class Database {
     required int width,
     required int height,
     required int weight,
-    required String category,
-    required int resPhoneNum,
-    required,
-  }) async {}
+    required String catagory,
+    required bool expressShipping,
+    required String? reciverID,
+  }) async {
+    DateTime deliveryDate = DateTime.now().add(
+      Duration(days: expressShipping ? 5 : 10),
+    );
+    String deliveryDateString =
+        "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}";
+
+    await getConnection().then(
+      (conn) => conn.execute(
+        """
+        INSERT INTO PACKAGE
+        VALUES(0, 'In Transit', '$deliveryDateString', $width, $length, $height,
+        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE)""",
+      ),
+    );
+  }
+
+  static Future<String?> getUserIDFromPhone({required String phone}) async {
+    return (await getConnection().then((conn) => conn.execute("""
+    SELECT UserID
+    FROM USER
+    WHERE Phone = $phone"""))).rows.first.assoc()["UserID"];
+  }
+
+  static Future<String?> getUserIDFromEmail({required String email}) async {
+    return (await getConnection().then((conn) => conn.execute("""
+    SELECT UserID
+    FROM USER
+    WHERE Email = '$email'"""))).rows.first.assoc()["UserID"];
+  }
 
   static Future<Map<String, String?>> getUser(
       {required String email, required String password}) async {

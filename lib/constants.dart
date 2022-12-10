@@ -19,4 +19,4 @@ const kHeading1TextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-const kCaptionTextStyle = TextStyle(fontSize: 20);
+const kCaptionTextStyle = TextStyle(fontSize: 18);
