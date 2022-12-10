@@ -14,7 +14,7 @@ const kTitleTextStyle = TextStyle(
 );
 
 const kHeading1TextStyle = TextStyle(
-  fontSize: 24.0,
+  fontSize: 26.0,
   fontFamily: "Times New Roman",
   fontWeight: FontWeight.bold,
 );
@@ -22,7 +22,6 @@ const kHeading1TextStyle = TextStyle(
 const kHeading2TextStyle = TextStyle(
   fontSize: 24.0,
   fontFamily: "Times New Roman",
-  fontWeight: FontWeight.bold,
 );
 
 const kCaptionTextStyle = TextStyle(fontSize: 18);

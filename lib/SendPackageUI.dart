@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:test_db/PackageSummury.dart';
 import 'package:test_db/constants.dart';
 import 'customWidgets.dart';
 import 'database.dart';
@@ -98,7 +99,9 @@ class _SendPackageUI extends State<SendPackageUI> {
               onPressed: () async {
                 String? reciverID = await Database.getUserIDFromPhone(
                     phone: resieverPhoneController.text);
-                Database.addPackage(
+
+                print("111111111");
+                String? packageID = await Database.addPackage(
                     val: int.parse(itemValController.text),
                     length: int.parse(lengthController.text),
                     width: int.parse(widthController.text),
@@ -107,6 +110,16 @@ class _SendPackageUI extends State<SendPackageUI> {
                     catagory: category,
                     expressShipping: expressShipping, //TODO
                     reciverID: reciverID);
+
+                print("HERE?");
+                print(packageID);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PackageSummury(packageID: packageID!)),
+                );
+                print("ORE HERE?");
               },
             ),
           ],
