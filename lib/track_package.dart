@@ -24,19 +24,18 @@ class TrackPackage extends StatefulWidget {
 }
 
 class _TrackPackageState extends State<TrackPackage> {
+  late Future<List<Widget>> items;
   String showOnly = "Sent & Received Packages";
-  List<Widget> items = [];
+  // List<Widget> items = [];
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      setItems("Sent & Received Packages");
-    });
+    items = setItems(showOnly);
   }
 
-  Future<void> setItems(String show) async {
-    print(show);
+  Future<List<Widget>> setItems(String show) async {
+    print(show + " ???");
     bool sent = show.contains("Sent");
     bool received = show.contains("Received");
 
@@ -45,7 +44,10 @@ class _TrackPackageState extends State<TrackPackage> {
       sent: sent,
       received: received,
     );
+    // wait
+    print(resultMap.length);
     List<Widget> newitems = [];
+    print("----");
     for (ResultSetRow r in resultMap) {
       newitems.add(
         CustomListViewItem(
@@ -55,8 +57,10 @@ class _TrackPackageState extends State<TrackPackage> {
           sender: r.assoc()["SenderID"]!,
         ),
       );
-      this.items = newitems;
     }
+    print(newitems.length);
+    print("");
+    return newitems;
   }
 
   @override
@@ -70,7 +74,6 @@ class _TrackPackageState extends State<TrackPackage> {
           children: [
             CustomDropdownButton(
                 title: "Show Only",
-                value: showOnly,
                 items: [
                   "Sent & Received Packages",
                   "Sent Packages",
@@ -79,59 +82,37 @@ class _TrackPackageState extends State<TrackPackage> {
                 onChanged: (value) {
                   setState(() {
                     showOnly = value!;
-                    setItems(value);
+                    items = setItems(value!);
                   });
                 }),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                children: items,
-                // children: [
-                //   Container(
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(20),
-                //       color: kLightColor,
-                //     ),
-                //     child: Column(
-                //       children: [
-                //         Row(
-                //           children: [
-                //             Expanded(
-                //               child: CustomLabel2(
-                //                 title: "Package ID",
-                //                 label: "12123",
-                //               ),
-                //             ),
-                //             Expanded(
-                //               child: CustomLabel2(
-                //                 title: "Exp. Arrival Date",
-                //                 label: "2-5-22",
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //         Row(
-                //           children: [
-                //             Expanded(
-                //               child: CustomLabel2(
-                //                 title: "Sender",
-                //                 label: "XXX",
-                //               ),
-                //             ),
-                //             Expanded(
-                //               child: CustomLabel2(
-                //                 title: "Receiver",
-                //                 label: "YYY",
-                //               ),
-                //             ),
-                //           ],
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ],
-              ),
-            )
+            FutureBuilder(
+                future: setItems(showOnly),
+                builder: (ctx, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    // If we got an error
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          '${snapshot.error} occurred',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      );
+
+                      // if we got our data
+                    } else if (snapshot.hasData) {
+                      // Extracting data from snapshot object
+                      var data = snapshot.data as List<Widget>;
+                      return Column(
+                        children: data,
+                      );
+                    }
+                  }
+
+                  // Displaying LoadingSpinner to indicate waiting state
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                })
           ],
         ),
       ),

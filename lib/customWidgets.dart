@@ -50,13 +50,13 @@ class CustomInputTextField extends StatelessWidget {
 // Drop down menu
 class CustomDropdownButton extends StatelessWidget {
   late String title;
-  late String value;
+  late String? value;
   late List<String> items;
   late void Function(String?)? onChanged;
 
   CustomDropdownButton({
     required this.title,
-    required this.value,
+    this.value,
     required this.items,
     required this.onChanged,
   });

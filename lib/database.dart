@@ -150,7 +150,6 @@ class Database {
      SELECT *
      FROM PACKAGE
      WHERE $condition;"""));
-    print(result.rows.first.assoc());
 
     return result.rows;
   }
