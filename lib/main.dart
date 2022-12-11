@@ -53,8 +53,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _scanBarcode = 'Unknown';
+  String tmp = "Nothing???";
 
-  Future<void> scanBarcodeNormal() async {
+  Future<String> scanBarcodeNormal() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -68,11 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) return "Error";
 
-    setState(() {
-      _scanBarcode = barcodeScanRes;
-    });
+    return barcodeScanRes;
+    // setState(() {
+    //   _scanBarcode = barcodeScanRes;
+    // });
   }
 
   @override
@@ -83,12 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("AM Delivey"),
+            Text(tmp),
             IconButton(
               icon: Icon(Icons.camera_alt),
               onPressed: () async {
                 //TODO add transition to notification screen
-                scanBarcodeNormal();
-                print(_scanBarcode);
+                String packageID = await scanBarcodeNormal();
+                setState(() {
+                  tmp = packageID;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PackageSummury(packageID: packageID),
+                  ),
+                );
               },
             )
           ],
@@ -111,12 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
               onPressed: () {
                 //TODO add transition to the Track screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          PackageSummury(packageID: _scanBarcode)),
-                );
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
