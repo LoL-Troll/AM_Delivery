@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:test_db/PackageSummury.dart';
 import 'package:test_db/constants.dart';
 
 // TextField For inputing text
@@ -216,48 +217,58 @@ class CustomListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: kLightColor,
-        ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: CustomLabel2(
-                    title: "Package ID",
-                    label: packageID,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PackageSummury(packageID: packageID),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: kLightColor,
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Package ID",
+                      label: packageID,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: CustomLabel2(
-                    title: "Exp. Arrival Date",
-                    label: date,
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Exp. Arrival Date",
+                      label: date,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomLabel2(
-                    title: "Sender",
-                    label: sender,
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Sender",
+                      label: sender,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: CustomLabel2(
-                    title: "Receiver",
-                    label: receiver,
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Receiver",
+                      label: receiver,
+                    ),
                   ),
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

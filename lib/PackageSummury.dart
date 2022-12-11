@@ -28,6 +28,7 @@ class PackageSummury extends StatefulWidget {
 class _PackageSummaryState extends State<PackageSummury> {
   String packageID;
   late Map<String, String?> packageInfo;
+  late Map<String, String?> senderInfo;
   late Map<String, String?> receiverInfo;
 
   _PackageSummaryState({required this.packageID});
@@ -38,6 +39,12 @@ class _PackageSummaryState extends State<PackageSummury> {
     Database.getPackage(packageID: packageID).then((value) {
       setState(() {
         packageInfo = value;
+
+        Database.getUser(id: packageInfo["SenderID"]!).then((value) {
+          setState(() {
+            senderInfo = value;
+          });
+        });
 
         Database.getUser(id: packageInfo["ReceiverID"]!).then((value) {
           setState(() {
@@ -61,7 +68,7 @@ class _PackageSummaryState extends State<PackageSummury> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Package Tracking QR Code",
+                  "Package Tracking Barcode",
                   style: kHeading1TextStyle,
                 ),
               ),
@@ -74,6 +81,13 @@ class _PackageSummaryState extends State<PackageSummury> {
                   height: 200,
                 ),
               ),
+              const Divider(
+                height: 10,
+                indent: 30,
+                endIndent: 30,
+                color: kPrimaryColor,
+                thickness: 2,
+              ),
               CustomLabel(
                 title: "Package Status",
                 label: packageInfo["Status"]!,
@@ -81,6 +95,30 @@ class _PackageSummaryState extends State<PackageSummury> {
               CustomLabel(
                 title: "Estimated Delivery Date",
                 label: packageInfo["Expected_Delivery_Date"]!,
+              ),
+              const Divider(
+                height: 10,
+                indent: 30,
+                endIndent: 30,
+                color: kPrimaryColor,
+                thickness: 2,
+              ),
+              CustomLabel(title: "Bill Info", label: """
+              Delivery Cost: XXXXX SAR
+              Insurance Cost: YYYYY SAR
+              -------------------
+              Total Cost: XXXXX + YYYYY SAR
+              """),
+              const Divider(
+                height: 10,
+                indent: 30,
+                endIndent: 30,
+                color: kPrimaryColor,
+                thickness: 2,
+              ),
+              Text(
+                "Package Information",
+                style: kHeading1TextStyle.copyWith(fontSize: 30),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -95,18 +133,44 @@ class _PackageSummaryState extends State<PackageSummury> {
               ),
               CustomLabel(title: "Catagory", label: packageInfo["Catagory"]!),
               CustomLabel(
-                  title: "Sender Name",
-                  label:
-                      "${User.getInstance().FName} ${User.getInstance().LName}"),
+                  title: "Item Value",
+                  label: packageInfo["item_Value"]! + " SAR"),
+              const Divider(
+                height: 10,
+                indent: 30,
+                endIndent: 30,
+                color: kPrimaryColor,
+                thickness: 2,
+              ),
               CustomLabel(
-                  title: "Sender Phone Number",
-                  label: User.getInstance().phone!),
+                  title: "Sender Name",
+                  label: "${senderInfo["Fname"]} ${senderInfo["Lname"]}"),
+              CustomLabel(
+                title: "Sender Phone Number",
+                label: senderInfo["Phone"]!,
+              ),
+              const Divider(
+                height: 10,
+                indent: 30,
+                endIndent: 30,
+                color: kPrimaryColor,
+                thickness: 2,
+              ),
               CustomLabel(
                   title: "Receiver Name",
                   label: receiverInfo["Fname"]! + " " + receiverInfo["Lname"]!),
               CustomLabel(
                   title: "Receiver Phone Number",
                   label: receiverInfo["Phone"]!),
+              const Divider(
+                height: 10,
+                indent: 30,
+                endIndent: 30,
+                color: kPrimaryColor,
+                thickness: 2,
+              ),
+              CustomBigButton(label: "Pay Now", onPressed: () {}),
+              CustomBigButton(label: "Track Package", onPressed: () {}),
             ],
           ),
         ),

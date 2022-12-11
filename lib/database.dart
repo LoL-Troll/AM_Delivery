@@ -148,8 +148,9 @@ class Database {
 
     var result = await getConnection().then((conn) => conn.execute("""
      SELECT *
-     FROM PACKAGE
-     WHERE $condition;"""));
+     FROM PACKAGE p
+     WHERE $condition
+     AND p.Status = 'In Transit';"""));
 
     return result.rows;
   }

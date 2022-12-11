@@ -74,6 +74,7 @@ class _TrackPackageState extends State<TrackPackage> {
           children: [
             CustomDropdownButton(
                 title: "Show Only",
+                value: "Sent & Received Packages",
                 items: [
                   "Sent & Received Packages",
                   "Sent Packages",

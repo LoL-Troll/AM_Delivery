@@ -23,13 +23,13 @@ const Color kDarkColor = Color(0xFF008ba3);
 
 const kTitleTextStyle = TextStyle(
   fontSize: 36.0,
-  fontFamily: "Times New Roman",
+  fontFamily: "Charger",
   fontWeight: FontWeight.bold,
 );
 
 const kHeading1TextStyle = TextStyle(
   fontSize: 26.0,
-  fontFamily: "Times New Roman",
+  fontFamily: "Charger",
   fontWeight: FontWeight.bold,
 );
 

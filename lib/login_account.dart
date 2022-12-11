@@ -57,11 +57,11 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image(
-                  height: 150,
+                  height: 250,
                   image: AssetImage(
-                    "assets/Standard_Delivery.png",
+                    "assets/logo.png",
                   ),
-                ), // TODO LOGO
+                ),
                 CustomInputTextField(
                   label: "Email",
                   controller: emailController,
