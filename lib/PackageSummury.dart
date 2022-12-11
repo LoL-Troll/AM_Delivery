@@ -68,7 +68,7 @@ class _PackageSummaryState extends State<PackageSummury> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: BarcodeWidget(
-                  barcode: Barcode.qrCode(),
+                  barcode: Barcode.code39(),
                   data: packageID,
                   width: 200,
                   height: 200,
