@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:test_db/EditProfile.dart';
 import 'package:test_db/SendPackageUI.dart';
 
+import 'PackageSummury.dart';
 import 'User.dart';
 
 void main() {
@@ -50,6 +52,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String _scanBarcode = 'Unknown';
+  String tmp = "Nothing???";
+
+  Future<String> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } catch (e) {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return "Error";
+
+    return barcodeScanRes;
+    // setState(() {
+    //   _scanBarcode = barcodeScanRes;
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,10 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("AM Delivey"),
+            Text(tmp),
             IconButton(
-              icon: Icon(Icons.notifications),
-              onPressed: () {
+              icon: Icon(Icons.camera_alt),
+              onPressed: () async {
                 //TODO add transition to notification screen
+                String packageID = await scanBarcodeNormal();
+                setState(() {
+                  tmp = packageID;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PackageSummury(packageID: packageID),
+                  ),
+                );
               },
             )
           ],
