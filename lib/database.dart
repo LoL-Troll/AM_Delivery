@@ -132,6 +132,29 @@ class Database {
     return result.rows.first.assoc();
   }
 
+  static Future<Iterable<ResultSetRow>> getSentOrReceivedPackges({
+    required String? userID,
+    bool sent = false,
+    bool received = false,
+  }) async {
+    String condition = "";
+    if (sent && received) {
+      condition = "SenderID = $userID OR ReceiverID = $userID";
+    } else if (sent) {
+      condition = "SenderID = $userID";
+    } else if (received) {
+      condition = "ReceiverID = $userID";
+    }
+
+    var result = await getConnection().then((conn) => conn.execute("""
+     SELECT *
+     FROM PACKAGE
+     WHERE $condition;"""));
+    print(result.rows.first.assoc());
+
+    return result.rows;
+  }
+
   static Future modifyCustomerUser(User user) async {
     String? id = user.userId,
         fName = user.FName,

@@ -19,6 +19,12 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          color: kPrimaryColor,
+        ),
+        primarySwatch: MaterialColor(kDarkColor.value, color),
+      ),
       home: LoginScreen(),
     );
   }

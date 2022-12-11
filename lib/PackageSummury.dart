@@ -70,7 +70,7 @@ class _PackageSummaryState extends State<PackageSummury> {
                 child: BarcodeWidget(
                   barcode: Barcode.code39(),
                   data: packageID,
-                  width: 200,
+                  width: 300,
                   height: 200,
                 ),
               ),
@@ -112,7 +112,18 @@ class _PackageSummaryState extends State<PackageSummury> {
         ),
       );
     } catch (e) {
-      return Scaffold(body: Center(child: const CircularProgressIndicator()));
+      return Scaffold(
+          body: Center(
+              child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const CircularProgressIndicator(),
+          Text(
+            "Fetching Data of Package No. $packageID",
+            style: kCaptionTextStyle,
+          )
+        ],
+      )));
     }
   }
 }

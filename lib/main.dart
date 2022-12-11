@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:test_db/EditProfile.dart';
 import 'package:test_db/SendPackageUI.dart';
+import 'package:test_db/constants.dart';
+import 'package:test_db/track_package.dart';
 
 import 'PackageSummury.dart';
 import 'User.dart';
 
+// TODO NO NEED FOR THIS
 void main() {
   runApp(const MyApp());
 }
 
+// TODO NO NEED FOR THIS
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -28,7 +32,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          color: Colors.amber,
+        ),
       ),
       home: const MyHomePage(),
     );
@@ -53,7 +59,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _scanBarcode = 'Unknown';
-  String tmp = "Nothing???";
+  final trackingNumberController = TextEditingController();
 
   Future<String> scanBarcodeNormal() async {
     String barcodeScanRes;
@@ -85,15 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("AM Delivey"),
-            Text(tmp),
             IconButton(
               icon: Icon(Icons.camera_alt),
               onPressed: () async {
-                //TODO add transition to notification screen
                 String packageID = await scanBarcodeNormal();
-                setState(() {
-                  tmp = packageID;
-                });
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -117,11 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [Icon(Icons.home), Text("Home")],
               ),
-            ),
+            ), // HOME
             Padding(padding: EdgeInsets.only(left: 5)),
             TextButton(
-              onPressed: () {
-                //TODO add transition to the Track screen
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrackPackage(),
+                  ),
+                );
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -131,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text("Track")
                 ],
               ),
-            ),
+            ), // TRACK
             Padding(padding: EdgeInsets.only(left: 5)),
             TextButton(
               onPressed: () {
@@ -141,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [Icon(Icons.history), Text("History")],
               ),
-            ),
+            ), // HISTORY
             Padding(padding: EdgeInsets.only(left: 5)),
             TextButton(
               onPressed: () {
@@ -159,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text("Profile")
                 ],
               ),
-            ),
+            ), // PROFILE
           ],
         ),
       ),
@@ -179,8 +186,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.blue.withOpacity(0.5),
+                  color: kLightColor,
                 ),
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width * 0.9,
                 child: Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -197,6 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(color: Colors.black.withOpacity(0.5)),
                       ),
                       TextField(
+                        controller: trackingNumberController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50)),
@@ -204,7 +214,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PackageSummury(
+                                  packageID: trackingNumberController.text),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20))),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -218,16 +240,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ],
                         ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20))),
                       )
                     ],
                   ),
                 ),
-                height: MediaQuery.of(context).size.height * 0.3,
-                width: MediaQuery.of(context).size.width * 0.9,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -241,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     margin: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.blue.withOpacity(0.5),
+                      color: kLightColor,
                     ),
                     child: TextButton(
                       onPressed: () {
@@ -293,7 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     margin: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.blue.withOpacity(0.5),
+                      color: kLightColor,
                     ),
                     child: TextButton(
                       onPressed: () {
