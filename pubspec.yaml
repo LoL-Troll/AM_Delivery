@@ -14,10 +14,13 @@ dependencies:
 
 
 
+
+
   cupertino_icons: ^1.0.2
   mysql_client: ^0.0.27
   barcode_widget: ^2.0.3
   flutter_barcode_scanner: ^2.0.0
+  csc_picker: ^0.2.6
 
 
 dev_dependencies:

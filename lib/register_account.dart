@@ -4,6 +4,7 @@ import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
 import 'User.dart';
 import 'database.dart';
+import 'register_location.dart';
 
 void main() {
   runApp(const MyApp());
@@ -92,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(padding: EdgeInsets.all(15)),
                 CustomBigButton(
                   label: "Confirm",
-                  onPressed: () {
+                  onPressed: () async {
                     fName = fNameController.text;
                     lName = lNameController.text;
                     phone = phoneController.text;
@@ -101,14 +102,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     String sex = gender == "Male" ? "M" : "F";
 
                     // TODO ENCRYPT PASSWORD
-                    Database.addCustomerUser(
+                    String? customerID = await Database.addCustomerUser(
                         fName: fName,
                         lName: lName,
                         sex: sex,
                         phone: phone,
                         email: email,
                         password: password);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterAddress(
+                          customerID: customerID,
+                        ),
+                      ),
+                    );
                   },
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => RegisterScreen()),
+                  // );
                 )
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:test_db/PackageSummury.dart';
 import 'package:test_db/constants.dart';
 
 // TextField For inputing text
@@ -50,13 +51,13 @@ class CustomInputTextField extends StatelessWidget {
 // Drop down menu
 class CustomDropdownButton extends StatelessWidget {
   late String title;
-  late String value;
+  late String? value;
   late List<String> items;
   late void Function(String?)? onChanged;
 
   CustomDropdownButton({
     required this.title,
-    required this.value,
+    this.value,
     required this.items,
     required this.onChanged,
   });
@@ -152,12 +153,143 @@ class CustomLabel extends StatelessWidget {
           Text(
             title,
             style: kHeading1TextStyle,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            maxLines: 3,
           ),
           Text(
             label,
             style: kHeading2TextStyle,
+            textAlign: TextAlign.center,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomLabel2 extends StatelessWidget {
+  late String title, label;
+  Color? labelColor = Colors.black;
+
+  CustomLabel2({
+    required this.title,
+    required this.label,
+    this.labelColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: kHeading1TextStyle.copyWith(fontSize: 20),
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            maxLines: 3,
+          ),
+          Text(
+            label,
+            style: kHeading2TextStyle.copyWith(
+              fontSize: 18,
+              color: labelColor,
+            ),
+            textAlign: TextAlign.center,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomListViewItem extends StatelessWidget {
+  late String packageID, date, sender, receiver, status;
+
+  CustomListViewItem({
+    required this.packageID,
+    required this.date,
+    required this.sender,
+    required this.receiver,
+    required this.status,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PackageSummury(packageID: packageID),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: kLightColor,
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Status",
+                      label: status,
+                      labelColor: status == "In Transit"
+                          ? Color(0xFF095769)
+                          : (status == "Delivered"
+                              ? Colors.green.shade800
+                              : Colors.red.shade700),
+                    ),
+                  ),
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Package ID",
+                      label: packageID,
+                    ),
+                  ),
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Exp. Arrival Date",
+                      label: date,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Sender",
+                      label: sender,
+                    ),
+                  ),
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Receiver",
+                      label: receiver,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
