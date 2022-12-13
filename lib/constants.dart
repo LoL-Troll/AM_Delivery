@@ -19,7 +19,7 @@ const Map<int, Color> color = {
 
 const Color kPrimaryColor = Color(0xFF00bcd4);
 const Color kLightColor = Color(0xAA62efff);
-const Color kDarkColor = Color(0xFF008ba3);
+const Color kDarkColor = Color(0xFF007387);
 
 const kTitleTextStyle = TextStyle(
   fontSize: 36.0,
