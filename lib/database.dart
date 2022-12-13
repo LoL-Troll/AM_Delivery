@@ -76,16 +76,59 @@ class Database {
       ),
     );
 
-    var x = (await getConnection().then((conn) => conn.execute("""
-    SELECT max(PackageID)
-    FROM PACKAGE"""))).rows.first.assoc();
-    print("WwfWFWF");
-    print(x["PackageID"]);
-
     var packageID = (await getConnection().then((conn) => conn.execute("""
     SELECT max(PackageID)
     FROM PACKAGE"""))).rows.first.assoc()["max(PackageID)"];
     return packageID;
+  }
+
+  static Future<String?> addHub({
+    required String country,
+    required String city,
+    required String street,
+    required String zip,
+    required String type,
+  }) async {
+    await getConnection().then(
+      (conn) => conn.execute(
+        """
+        INSERT INTO HUB
+        VALUES(0, '$type', $zip, '$city', '$street', '$country')
+        """,
+      ),
+    );
+
+    var hubID = (await getConnection().then((conn) => conn.execute("""
+    SELECT max(Hub_ID)
+    FROM HUB"""))).rows.first.assoc()["max(Hub_ID)"];
+    return hubID;
+  }
+
+  static Future<String?> addCustomerAddress({
+    required String country,
+    required String city,
+    required String street,
+    required String zip,
+    required String houseNumber,
+    required String customerID,
+  }) async {
+    String? hubID = await addHub(
+        country: country,
+        city: city,
+        street: street,
+        zip: zip,
+        type: "Customer Address");
+
+    await getConnection().then(
+      (conn) => conn.execute(
+        """
+        INSERT INTO CUSTOMER_ADDRESS
+        VALUES($hubID, $houseNumber, $customerID)
+        """,
+      ),
+    );
+
+    return hubID;
   }
 
   static Future<Map<String, String?>> loginUser(

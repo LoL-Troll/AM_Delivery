@@ -56,6 +56,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "csc_picker",
+      "rootUri": "file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/csc_picker-0.2.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5",
       "packageUri": "lib/",
@@ -236,7 +242,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-12-11T22:08:23.738798Z",
+  "generated": "2022-12-13T11:33:17.030511Z",
   "generator": "pub",
   "generatorVersion": "2.18.4"
 }
