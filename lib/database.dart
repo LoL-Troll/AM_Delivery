@@ -132,7 +132,7 @@ class Database {
     return result.rows.first.assoc();
   }
 
-  static Future<Iterable<ResultSetRow>> getSentOrReceivedPackges({
+  static Future<Iterable<ResultSetRow>> getSentOrReceivedPackgesInTransit({
     required String? userID,
     bool sent = false,
     bool received = false,
@@ -151,6 +151,29 @@ class Database {
      FROM PACKAGE p
      WHERE $condition
      AND p.Status = 'In Transit';"""));
+
+    return result.rows;
+  }
+
+  static Future<Iterable<ResultSetRow>> getSentOrReceivedPackges({
+    required String? userID,
+    bool sent = false,
+    bool received = false,
+  }) async {
+    String condition = "";
+    if (sent && received) {
+      condition = "SenderID = $userID OR ReceiverID = $userID";
+    } else if (sent) {
+      condition = "SenderID = $userID";
+    } else if (received) {
+      condition = "ReceiverID = $userID";
+    }
+
+    var result = await getConnection().then((conn) => conn.execute("""
+     SELECT *
+     FROM PACKAGE p
+     WHERE ($condition)
+     AND p.Status NOT IN ('In Transit');"""));
 
     return result.rows;
   }

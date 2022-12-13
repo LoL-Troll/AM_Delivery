@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/AM_Delivery_GIT.iml" filepath="$PROJECT_DIR$/.idea/AM_Delivery_GIT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/AMDGit.iml" filepath="$PROJECT_DIR$/.idea/AMDGit.iml" />
     </modules>
   </component>
 </project>

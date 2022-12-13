@@ -39,7 +39,7 @@ class _TrackPackageState extends State<TrackPackage> {
     bool sent = show.contains("Sent");
     bool received = show.contains("Received");
 
-    Iterable<ResultSetRow> resultMap = await Database.getSentOrReceivedPackges(
+    Iterable<ResultSetRow> resultMap = await Database.getSentOrReceivedPackgesInTransit(
       userID: User.getInstance().userId,
       sent: sent,
       received: received,
