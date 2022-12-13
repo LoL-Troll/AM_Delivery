@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             TextButton(
               onPressed: () {
-                //TODO add transition to the main screen
+                //  add transition to the main screen
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -289,7 +289,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 Text(
-                                  "Deliver Packages from 1-3 days after pickup",
+                                  "Deliver Packages from 8-12 days after pickup",
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.5)),
                                   softWrap: false,
@@ -313,7 +313,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        //TODO Make it go to the Express Delivey page/Service
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SendPackageUI(
+                              expressShipping: true,
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
@@ -333,7 +340,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 Text(
-                                  "Deliver Packages overnight after pickup",
+                                  "Deliver Packages from 3-5 days after pickup",
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.5)),
                                   softWrap: false,
