@@ -1,0 +1,162 @@
+#flutter specific
+.flutter-plugins
+.DS_Store
+.dart_tool/
+.packages
+.pub/
+build/
+android/app/google-services.json
+.idea/
+android/key.properties
+pubspec.lock
+doc/api/
+
+#ios specific
+ios/.generated/
+ios/Podfile*
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+ios/Runner.xcworkspace/contents.xcworkspacedata
+
+#android specific
+android/app/google-services.json
+android/key.properties
+
+# User-specific
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# Gradle and Maven with auto-import
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+*.iml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+androidiosandroid-studioflutter
+Share
+Improve this question
+Follow
+asked Sep 12, 2018 at 1:17
+dazza5000's user avatar
+dazza5000
+6,69077 gold badges4141 silver badges8282 bronze badges
+11
+Have you tried gitignore.io? There are usually some pretty sane defaults there: gitignore.io/api/android,flutter,androidstudio – 
+tylerargo
+ Sep 12, 2018 at 1:53
+3
+When you create a new Flutter project a .gitignore file is created already. What's wrong with that file? This file is not related to "enable Dart support". – 
+Günter Zöchbauer
+ Sep 12, 2018 at 2:49
+Your problem with "enabling Dart support" is because of the .idea in your .gitignore. .idea has codeStyle that makes Android Studio recognize your project as a dart project. Also check this link about making a .gitignore for flutter projects. – 
+Serl
+ Sep 13, 2018 at 20:53
+2
+Shall the *.g.dart be ignored? – 
+ch271828n
+ Feb 15, 2020 at 12:19
+Add a comment
+5 Answers
+Sorted by:
+
+Highest score (default)
+
+66
+
+
+This is the .gitignore generated automatically by Android Studio, hope that this is what you're looking for:
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# iOS/XCode related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Exceptions to above rules.
+!**/ios/**/default.mode1v3
+!**/ios/**/default.mode2v3
+!**/ios/**/default.pbxuser
+!**/ios/**/default.perspectivev3
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
