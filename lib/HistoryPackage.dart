@@ -1,31 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql_client/src/mysql_client/connection.dart';
-import 'package:test_db/User.dart';
-import 'package:test_db/customWidgets.dart';
-import 'package:test_db/database.dart';
+import 'package:mysql_client/mysql_client.dart';
 
-import 'constants.dart';
+import 'User.dart';
+import 'customWidgets.dart';
+import 'database.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: TrackPackage(),
-    ),
-  );
-}
-
-class TrackPackage extends StatefulWidget {
-  const TrackPackage({Key? key}) : super(key: key);
+class HistoryPackage extends StatefulWidget {
+  const HistoryPackage({Key? key}) : super(key: key);
 
   @override
-  State<TrackPackage> createState() => _TrackPackageState();
+  State<HistoryPackage> createState() => _HistoryPackageState();
 }
 
-class _TrackPackageState extends State<TrackPackage> {
+class _HistoryPackageState extends State<HistoryPackage> {
   late Future<List<Widget>> items;
   String showOnly = "Sent & Received Packages";
+
   // List<Widget> items = [];
 
   @override
@@ -39,29 +30,22 @@ class _TrackPackageState extends State<TrackPackage> {
     bool sent = show.contains("Sent");
     bool received = show.contains("Received");
 
-    Iterable<ResultSetRow> resultMap = await Database.getSentOrReceivedPackgesInTransit(
+    Iterable<ResultSetRow> resultMap = await Database.getSentOrReceivedPackges(
       userID: User.getInstance().userId,
       sent: sent,
       received: received,
     );
-
+    // wait
     print(resultMap.length);
     List<Widget> newitems = [];
     print("----");
     for (ResultSetRow r in resultMap) {
-      String packageID = r.assoc()["PackageID"]!;
-      String date = r.assoc()["Expected_Delivery_Date"]!;
-      String receiver = r.assoc()["ReceiverID"]!;
-      String sender = r.assoc()["SenderID"]!;
-      String status = r.assoc()["Status"]!;
-
       newitems.add(
         CustomListViewItem(
-          packageID: packageID,
-          date: date,
-          receiver: receiver,
-          sender: sender,
-          status: status,
+          packageID: r.assoc()["PackageID"]!,
+          date: r.assoc()["Expected_Delivery_Date"]!,
+          receiver: r.assoc()["ReceiverID"]!,
+          sender: r.assoc()["SenderID"]!,
         ),
       );
     }

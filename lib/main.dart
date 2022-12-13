@@ -5,6 +5,7 @@ import 'package:test_db/SendPackageUI.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/track_package.dart';
 
+import 'HistoryPackage.dart';
 import 'PackageSummury.dart';
 import 'User.dart';
 
@@ -95,7 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.camera_alt),
               onPressed: () async {
                 String packageID = await scanBarcodeNormal();
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -143,6 +143,12 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
               onPressed: () {
                 //TODO add transition to the History screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HistoryPackage(),
+                  ),
+                );
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
