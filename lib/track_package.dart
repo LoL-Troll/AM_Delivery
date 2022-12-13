@@ -44,17 +44,24 @@ class _TrackPackageState extends State<TrackPackage> {
       sent: sent,
       received: received,
     );
-    // wait
+
     print(resultMap.length);
     List<Widget> newitems = [];
     print("----");
     for (ResultSetRow r in resultMap) {
+      String packageID = r.assoc()["PackageID"]!;
+      String date = r.assoc()["Expected_Delivery_Date"]!;
+      String receiver = r.assoc()["ReceiverID"]!;
+      String sender = r.assoc()["SenderID"]!;
+      String status = r.assoc()["Status"]!;
+
       newitems.add(
         CustomListViewItem(
-          packageID: r.assoc()["PackageID"]!,
-          date: r.assoc()["Expected_Delivery_Date"]!,
-          receiver: r.assoc()["ReceiverID"]!,
-          sender: r.assoc()["SenderID"]!,
+          packageID: packageID,
+          date: date,
+          receiver: receiver,
+          sender: sender,
+          status: status,
         ),
       );
     }

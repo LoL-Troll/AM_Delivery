@@ -174,8 +174,13 @@ class CustomLabel extends StatelessWidget {
 
 class CustomLabel2 extends StatelessWidget {
   late String title, label;
+  Color? labelColor = Colors.black;
 
-  CustomLabel2({required this.title, required this.label});
+  CustomLabel2({
+    required this.title,
+    required this.label,
+    this.labelColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +198,10 @@ class CustomLabel2 extends StatelessWidget {
           ),
           Text(
             label,
-            style: kHeading2TextStyle.copyWith(fontSize: 18),
+            style: kHeading2TextStyle.copyWith(
+              fontSize: 18,
+              color: labelColor,
+            ),
             textAlign: TextAlign.center,
             softWrap: false,
             overflow: TextOverflow.ellipsis,
@@ -206,13 +214,14 @@ class CustomLabel2 extends StatelessWidget {
 }
 
 class CustomListViewItem extends StatelessWidget {
-  late String packageID, date, sender, receiver;
+  late String packageID, date, sender, receiver, status;
 
   CustomListViewItem({
     required this.packageID,
     required this.date,
     required this.sender,
     required this.receiver,
+    required this.status,
   });
 
   @override
@@ -237,6 +246,17 @@ class CustomListViewItem extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  Expanded(
+                    child: CustomLabel2(
+                      title: "Status",
+                      label: status,
+                      labelColor: status == "In Transit"
+                          ? Color(0xFF095769)
+                          : (status == "Delivered"
+                              ? Colors.green.shade800
+                              : Colors.red.shade700),
+                    ),
+                  ),
                   Expanded(
                     child: CustomLabel2(
                       title: "Package ID",
