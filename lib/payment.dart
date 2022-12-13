@@ -124,6 +124,10 @@ class _PackageSummaryState extends State<PaymentScreen> {
                   });
                 },
               ),
+              Text(
+                "Total BIll: $bill SAR",
+                style: kHeading1TextStyle,
+              ),
               CustomBigButton(
                   label: "Pay",
                   onPressed: () {
@@ -135,7 +139,7 @@ class _PackageSummaryState extends State<PaymentScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TransactionLoading(),
+                        builder: (context) => LoadingTransaction(),
                       ),
                     );
                   }),

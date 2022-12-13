@@ -11,19 +11,19 @@ void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TransactionLoading(),
+      home: LoadingTransaction(),
     ),
   );
 }
 
-class TransactionLoading extends StatefulWidget {
-  const TransactionLoading({Key? key}) : super(key: key);
+class LoadingTransaction extends StatefulWidget {
+  const LoadingTransaction({Key? key}) : super(key: key);
 
   @override
-  State<TransactionLoading> createState() => _TransactionLoadingState();
+  State<LoadingTransaction> createState() => _LoadingTransactionState();
 }
 
-class _TransactionLoadingState extends State<TransactionLoading> {
+class _LoadingTransactionState extends State<LoadingTransaction> {
   Future<String> getData() {
     return Future.delayed(Duration(seconds: 2), () {
       return "Payment Succeeded";
