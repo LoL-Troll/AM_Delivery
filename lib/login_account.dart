@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mysql_client/mysql_client.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
 import 'package:test_db/register_account.dart';
@@ -101,16 +102,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () async {
                     email = emailController.text;
                     password = passwordController.text;
-                    Map<String, String?> userInfo = await Database.loginUser(
-                        email: email, password: password);
+                    try {
+                      Map<String, String?> userInfo = await Database.loginUser(
+                          email: email, password: password);
 
-                    User.craeteObj(userInfo);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyHomePage()),
-                    );
-                    //TODO
+                      User.craeteObj(userInfo);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyHomePage()),
+                      );
+                    } catch (e) {
+                      Alert(
+                          context: context,
+                          title: "The Email or Password Entered is Incorrect",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ],
+                          style: AlertStyle(
+                            titleStyle: kHeading1TextStyle,
+                          )).show();
+                    }
                   },
                 ),
               ],

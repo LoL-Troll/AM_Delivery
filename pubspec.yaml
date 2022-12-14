@@ -21,6 +21,8 @@ dependencies:
   barcode_widget: ^2.0.3
   flutter_barcode_scanner: ^2.0.0
   csc_picker: ^0.2.6
+  flutter_credit_card: ^3.0.4
+  rflutter_alert: ^2.0.4
 
 
 dev_dependencies:

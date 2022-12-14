@@ -108,12 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        // TODO CHANGE TO bottomNavigationBar
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButton(
               onPressed: () {
-                //TODO add transition to the main screen
+                //  add transition to the main screen
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -184,9 +185,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(
-                  "Hello, ${User.getInstance().FName}",
-                  //TODO Make it so that the user Fname is displayed here
-                  style: TextStyle(fontSize: 30),
+                  "Hello, ${User.getInstance().sex == "M" ? "Mr." : "Ms."} ${User.getInstance().FName}",
+                  style: kTitleTextStyle,
                 ),
               ),
               Container(
@@ -202,14 +202,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       Text(
                         "Track Your Package",
-                        style: TextStyle(fontSize: 20),
+                        style: kHeading2TextStyle,
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                       ),
                       Text(
                         "Enter the Tracking Number of your package",
-                        style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                        style: kCaptionTextStyle,
                       ),
                       TextField(
                         controller: trackingNumberController,
@@ -217,6 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50)),
                           hintText: "Enter the Tracking Number",
+                          hintStyle: kCaptionTextStyle,
                         ),
                       ),
                       ElevatedButton(
@@ -232,13 +233,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20))),
+                              borderRadius: BorderRadius.circular(20),
+                            )),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               "Track Now",
-                              style: TextStyle(color: Colors.white),
+                              style: kCaptionTextStyle,
                             ),
                             Icon(
                               Icons.arrow_right_alt_sharp,
@@ -254,8 +256,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  SizedBox(height: 15),
                   Text(
                     "Our Services: ",
+                    style: kHeading1TextStyle,
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.15,
@@ -292,12 +296,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Text(
                                   "Normal Shipping",
-                                  style: TextStyle(color: Colors.black),
+                                  style: kHeading2TextStyle,
                                 ),
                                 Text(
-                                  "Deliver Packages from 1-3 days after pickup",
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.5)),
+                                  "Deliver Packages from 8-12 days after pickup",
+                                  style: kCaptionTextStyle,
                                   softWrap: false,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
@@ -319,7 +322,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        //TODO Make it go to the Express Delivey page/Service
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SendPackageUI(
+                              expressShipping: true,
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
@@ -336,12 +346,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Text(
                                   "Express Shipping",
-                                  style: TextStyle(color: Colors.black),
+                                  style: kHeading2TextStyle,
                                 ),
                                 Text(
-                                  "Deliver Packages overnight after pickup",
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.5)),
+                                  "Deliver Packages from 3-5 days after pickup",
+                                  style: kCaptionTextStyle,
                                   softWrap: false,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
