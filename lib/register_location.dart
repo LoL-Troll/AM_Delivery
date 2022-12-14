@@ -1,6 +1,7 @@
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
 import 'package:test_db/login_account.dart';
@@ -114,29 +115,62 @@ class _RegisterAddressState extends State<RegisterAddress> {
                   ),
                 ), // CustomCountryPicker
                 CustomInputTextField(
-                    label: "Zip Code", controller: zipCodeController),
+                  label: "Zip Code",
+                  controller: zipCodeController,
+                  keyboardtype: TextInputType.number,
+                ),
                 CustomInputTextField(
-                    label: "Street", controller: streetController),
+                  label: "Street",
+                  controller: streetController,
+                  inputformatters: [LengthLimitingTextInputFormatter(50)],
+                ),
                 CustomInputTextField(
-                    label: "House Number", controller: houseNumberController),
+                  label: "House Number",
+                  controller: houseNumberController,
+                  keyboardtype: TextInputType.number,
+                ),
                 CustomBigButton(
                   label: "Confirm",
                   onPressed: () {
-                    Database.addCustomerAddress(
-                        country: countryValue!,
-                        city: cityValue!,
-                        street: streetController.text,
-                        zip: zipCodeController.text,
-                        houseNumber: houseNumberController.text,
-                        customerID: customerID!);
-                    print(countryValue! + " " + cityValue!);
+                    if (countryValue != null &&
+                        cityValue != null &&
+                        streetController.text.isNotEmpty &&
+                        zipCodeController.text.isNotEmpty &&
+                        houseNumberController.text.isNotEmpty) {
+                      Database.addCustomerAddress(
+                          country: countryValue!,
+                          city: cityValue!,
+                          street: streetController.text,
+                          zip: zipCodeController.text,
+                          houseNumber: houseNumberController.text,
+                          customerID: customerID!);
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    );
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    } else {
+                      Alert(
+                          context: context,
+                          title: "All Fields Must Be Filled",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ],
+                          style: AlertStyle(
+                            titleStyle: kHeading1TextStyle,
+                          )).show();
+                    }
                   },
                 )
               ],

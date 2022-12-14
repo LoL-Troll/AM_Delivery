@@ -1,9 +1,11 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:test_db/DetailedTrack.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
 import 'package:test_db/database.dart';
 import 'package:test_db/User.dart';
+import 'package:test_db/payment.dart';
 
 void main() {
   runApp(
@@ -169,8 +171,27 @@ class _PackageSummaryState extends State<PackageSummury> {
                 color: kPrimaryColor,
                 thickness: 2,
               ),
-              CustomBigButton(label: "Pay Now", onPressed: () {}),
-              CustomBigButton(label: "Track Package", onPressed: () {}),
+              CustomBigButton(
+                  label: "Pay Now",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentScreen(
+                          packageID: packageID,
+                          bill: 800, //TODO formula
+                        ),
+                      ),
+                    );
+                  }),
+              CustomBigButton(label: "Track Package", onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailedTrack(packageID: packageID,),
+                  ),
+                );
+              }),
             ],
           ),
         ),

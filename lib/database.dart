@@ -192,7 +192,7 @@ class Database {
     var result = await getConnection().then((conn) => conn.execute("""
      SELECT *
      FROM PACKAGE p
-     WHERE $condition
+     WHERE ($condition)
      AND p.Status = 'In Transit';"""));
 
     return result.rows;
@@ -221,6 +221,24 @@ class Database {
     return result.rows;
   }
 
+  static Future<Iterable<ResultSetRow>> getTrackingDetails(
+      {required String? packageID}) async {
+    var result = await getConnection().then((conn) => conn.execute("""
+     Select *
+    FROM (PACKAGE p NATURAL JOIN TRANSPORTS t) NATURAL JOIN TRANSPORT_EVENT te NATURAL JOIN TRANSPORT_ACTIVITY ta
+    WHERE p.PackageID = $packageID
+    ORDER BY ScheduleNum asc ,Date asc, Activity desc"""));
+    return result.rows;
+  }
+
+  static Future<Map<String, String?>> getHub({required String? HubID}) async {
+    var result = await getConnection().then((conn) => conn.execute("""
+    Select *
+    FROM HUB
+    Where Hub_ID = $HubID"""));
+    return result.rows.first.assoc();
+  }
+
   static Future modifyCustomerUser(User user) async {
     String? id = user.userId,
         fName = user.FName,
@@ -231,9 +249,7 @@ class Database {
 
     var x = await getConnection().then((conn) => conn.execute("""
     UPDATE USER
-    SET FName = '$fName', LName = '$lName', sex = '$sex', email = '$email', Phone = $phone
+    SET FName = '$fName', LName = '$lName', sex = '$sex', email = '$email', Phone = '$phone'
     WHERE UserID = $id"""));
-    print(x.rows.length);
-    print("USER WITH NAME $fName $lName and ID $id BEEN MODIFIED");
   }
 }

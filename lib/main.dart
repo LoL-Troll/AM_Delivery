@@ -4,7 +4,6 @@ import 'package:test_db/EditProfile.dart';
 import 'package:test_db/SendPackageUI.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/track_package.dart';
-
 import 'HistoryPackage.dart';
 import 'PackageSummury.dart';
 import 'User.dart';
@@ -12,6 +11,58 @@ import 'User.dart';
 // TODO NO NEED FOR THIS
 void main() {
   runApp(const MyApp());
+}
+
+class Main extends StatefulWidget {
+  const Main({Key? key}) : super(key: key);
+
+  @override
+  State<Main> createState() => _MainState();
+}
+
+class _MainState extends State<Main> {
+  int currentIndex = 0;
+  List<Widget> _children = [
+    MyHomePage(),
+    TrackPackage(),
+    HistoryPackage(),
+    EditProfile()
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.track_changes),
+            label: 'Track',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        unselectedItemColor: Colors.black,
+        currentIndex: currentIndex,
+        selectedItemColor: Color(0xff03dffc),
+      ),
+      body: _children[currentIndex],
+    );
+  }
 }
 
 // TODO NO NEED FOR THIS
@@ -84,6 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // });
   }
 
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,75 +165,76 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton(
-              onPressed: () {
-                //TODO add transition to the main screen
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [Icon(Icons.home), Text("Home")],
-              ),
-            ), // HOME
-            Padding(padding: EdgeInsets.only(left: 5)),
-            TextButton(
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TrackPackage(),
-                  ),
-                );
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.track_changes),
-                  Padding(padding: EdgeInsets.only(left: 5)),
-                  Text("Track")
-                ],
-              ),
-            ), // TRACK
-            Padding(padding: EdgeInsets.only(left: 5)),
-            TextButton(
-              onPressed: () {
-                //TODO add transition to the History screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HistoryPackage(),
-                  ),
-                );
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [Icon(Icons.history), Text("History")],
-              ),
-            ), // HISTORY
-            Padding(padding: EdgeInsets.only(left: 5)),
-            TextButton(
-              onPressed: () {
-                //TODO add transition to the Profile screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EditProfile()),
-                );
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.person),
-                  Padding(padding: EdgeInsets.only(left: 5)),
-                  Text("Profile")
-                ],
-              ),
-            ), // PROFILE
-          ],
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   // TODO CHANGE TO bottomNavigationBar
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     children: [
+      //       TextButton(
+      //         onPressed: () {
+      //           //  add transition to the main screen
+      //         },
+      //         child: Column(
+      //           mainAxisSize: MainAxisSize.min,
+      //           children: [Icon(Icons.home), Text("Home")],
+      //         ),
+      //       ), // HOME
+      //       Padding(padding: EdgeInsets.only(left: 5)),
+      //       TextButton(
+      //         onPressed: () async {
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) => TrackPackage(),
+      //             ),
+      //           );
+      //         },
+      //         child: Column(
+      //           mainAxisSize: MainAxisSize.min,
+      //           children: [
+      //             Icon(Icons.track_changes),
+      //             Padding(padding: EdgeInsets.only(left: 5)),
+      //             Text("Track")
+      //           ],
+      //         ),
+      //       ), // TRACK
+      //       Padding(padding: EdgeInsets.only(left: 5)),
+      //       TextButton(
+      //         onPressed: () {
+      //           //TODO add transition to the History screen
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) => HistoryPackage(),
+      //             ),
+      //           );
+      //         },
+      //         child: Column(
+      //           mainAxisSize: MainAxisSize.min,
+      //           children: [Icon(Icons.history), Text("History")],
+      //         ),
+      //       ), // HISTORY
+      //       Padding(padding: EdgeInsets.only(left: 5)),
+      //       TextButton(
+      //         onPressed: () {
+      //           //TODO add transition to the Profile screen
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(builder: (context) => const EditProfile()),
+      //           );
+      //         },
+      //         child: Column(
+      //           mainAxisSize: MainAxisSize.min,
+      //           children: [
+      //             Icon(Icons.person),
+      //             Padding(padding: EdgeInsets.only(left: 5)),
+      //             Text("Profile")
+      //           ],
+      //         ),
+      //       ), // PROFILE
+      //     ],
+      //   ),
+      // ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -184,9 +243,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(
-                  "Hello, ${User.getInstance().FName}",
-                  //TODO Make it so that the user Fname is displayed here
-                  style: TextStyle(fontSize: 30),
+                  "Hello, ${User.getInstance().sex == "M" ? "Mr." : "Ms."} ${User.getInstance().FName}",
+                  style: kTitleTextStyle,
                 ),
               ),
               Container(
@@ -202,14 +260,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       Text(
                         "Track Your Package",
-                        style: TextStyle(fontSize: 20),
+                        style: kHeading2TextStyle,
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                       ),
                       Text(
                         "Enter the Tracking Number of your package",
-                        style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                        style: kCaptionTextStyle,
                       ),
                       TextField(
                         controller: trackingNumberController,
@@ -217,6 +275,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50)),
                           hintText: "Enter the Tracking Number",
+                          hintStyle: kCaptionTextStyle,
                         ),
                       ),
                       ElevatedButton(
@@ -232,13 +291,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20))),
+                              borderRadius: BorderRadius.circular(20),
+                            )),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               "Track Now",
-                              style: TextStyle(color: Colors.white),
+                              style: kCaptionTextStyle,
                             ),
                             Icon(
                               Icons.arrow_right_alt_sharp,
@@ -254,8 +314,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  SizedBox(height: 15),
                   Text(
                     "Our Services: ",
+                    style: kHeading1TextStyle,
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.15,
@@ -292,12 +354,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Text(
                                   "Normal Shipping",
-                                  style: TextStyle(color: Colors.black),
+                                  style: kHeading2TextStyle,
                                 ),
                                 Text(
-                                  "Deliver Packages from 1-3 days after pickup",
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.5)),
+                                  "Deliver Packages from 8-12 days after pickup",
+                                  style: kCaptionTextStyle,
                                   softWrap: false,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
@@ -319,7 +380,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        //TODO Make it go to the Express Delivey page/Service
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SendPackageUI(
+                              expressShipping: true,
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
@@ -336,12 +404,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Text(
                                   "Express Shipping",
-                                  style: TextStyle(color: Colors.black),
+                                  style: kHeading2TextStyle,
                                 ),
                                 Text(
-                                  "Deliver Packages overnight after pickup",
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.5)),
+                                  "Deliver Packages from 3-5 days after pickup",
+                                  style: kCaptionTextStyle,
                                   softWrap: false,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,

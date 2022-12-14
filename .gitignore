@@ -160,3 +160,4 @@ This is the .gitignore generated automatically by Android Studio, hope that this
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
