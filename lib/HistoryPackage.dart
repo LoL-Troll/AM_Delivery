@@ -46,6 +46,7 @@ class _HistoryPackageState extends State<HistoryPackage> {
           date: r.assoc()["Expected_Delivery_Date"]!,
           receiver: r.assoc()["ReceiverID"]!,
           sender: r.assoc()["SenderID"]!,
+          status: r.assoc()["Status"]!,
         ),
       );
     }
@@ -58,7 +59,7 @@ class _HistoryPackageState extends State<HistoryPackage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Track Packages"),
+        title: Text("Previous Packages"),
       ),
       body: SingleChildScrollView(
         child: Column(

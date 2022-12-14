@@ -23,7 +23,7 @@ dependencies:
   csc_picker: ^0.2.6
   flutter_credit_card: ^3.0.4
   rflutter_alert: ^2.0.4
-
+  another_stepper: ^1.1.6
 
 dev_dependencies:
   flutter_test:
