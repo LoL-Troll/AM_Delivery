@@ -44,8 +44,9 @@ class _HistoryPackageState extends State<HistoryPackage> {
         CustomListViewItem(
           packageID: r.assoc()["PackageID"]!,
           date: r.assoc()["Expected_Delivery_Date"]!,
-          receiver: r.assoc()["ReceiverID"]!,
           sender: r.assoc()["SenderID"]!,
+          receiver: r.assoc()["ReceiverID"]!,
+          status: r.assoc()['Status']!,
         ),
       );
     }

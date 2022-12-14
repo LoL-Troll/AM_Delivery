@@ -4,7 +4,6 @@ import 'package:test_db/EditProfile.dart';
 import 'package:test_db/SendPackageUI.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/track_package.dart';
-
 import 'HistoryPackage.dart';
 import 'PackageSummury.dart';
 import 'User.dart';
@@ -107,75 +106,93 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: BottomNavigationBar(
         // TODO CHANGE TO bottomNavigationBar
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton(
-              onPressed: () {
-                //  add transition to the main screen
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [Icon(Icons.home), Text("Home")],
-              ),
-            ), // HOME
-            Padding(padding: EdgeInsets.only(left: 5)),
-            TextButton(
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TrackPackage(),
-                  ),
-                );
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.track_changes),
-                  Padding(padding: EdgeInsets.only(left: 5)),
-                  Text("Track")
-                ],
-              ),
-            ), // TRACK
-            Padding(padding: EdgeInsets.only(left: 5)),
-            TextButton(
-              onPressed: () {
-                //TODO add transition to the History screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HistoryPackage(),
-                  ),
-                );
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [Icon(Icons.history), Text("History")],
-              ),
-            ), // HISTORY
-            Padding(padding: EdgeInsets.only(left: 5)),
-            TextButton(
-              onPressed: () {
-                //TODO add transition to the Profile screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EditProfile()),
-                );
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.person),
-                  Padding(padding: EdgeInsets.only(left: 5)),
-                  Text("Profile")
-                ],
-              ),
-            ), // PROFILE
-          ],
-        ),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: ("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: Text("Home"),
+          ),
+        ]
+        //   Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //   children: [
+        //     TextButton(
+        //       onPressed: () {
+        //         //  add transition to the main screen
+        //       },
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [Icon(Icons.home), Text("Home")],
+        //       ),
+        //     ), // HOME
+        //     Padding(padding: EdgeInsets.only(left: 5)),
+        //     TextButton(
+        //       onPressed: () async {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) => TrackPackage(),
+        //           ),
+        //         );
+        //       },
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [
+        //           Icon(Icons.track_changes),
+        //           Padding(padding: EdgeInsets.only(left: 5)),
+        //           Text("Track")
+        //         ],
+        //       ),
+        //     ), // TRACK
+        //     Padding(padding: EdgeInsets.only(left: 5)),
+        //     TextButton(
+        //       onPressed: () {
+        //         //TODO add transition to the History screen
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) => HistoryPackage(),
+        //           ),
+        //         );
+        //       },
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [Icon(Icons.history), Text("History")],
+        //       ),
+        //     ), // HISTORY
+        //     Padding(padding: EdgeInsets.only(left: 5)),
+        //     TextButton(
+        //       onPressed: () {
+        //         //TODO add transition to the Profile screen
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(builder: (context) => const EditProfile()),
+        //         );
+        //       },
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [
+        //           Icon(Icons.person),
+        //           Padding(padding: EdgeInsets.only(left: 5)),
+        //           Text("Profile")
+        //         ],
+        //       ),
+        //     ), // PROFILE
+        //   ],
+        // ),
       ),
       body: Center(
         child: SingleChildScrollView(
