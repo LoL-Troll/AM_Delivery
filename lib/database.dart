@@ -252,4 +252,11 @@ class Database {
     SET FName = '$fName', LName = '$lName', sex = '$sex', email = '$email', Phone = '$phone'
     WHERE UserID = $id"""));
   }
+
+  static Future setPaidPackage({required String packageID}) async {
+    var x = await getConnection().then((conn) => conn.execute("""
+    UPDATE PACKAGE
+    SET Payment_Status = 1
+    WHERE UserID = $packageID"""));
+  }
 }

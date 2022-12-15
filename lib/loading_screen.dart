@@ -1,29 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql_client/src/mysql_client/connection.dart';
+import 'package:test_db/PackageSummury.dart';
 import 'package:test_db/User.dart';
 import 'package:test_db/customWidgets.dart';
 import 'package:test_db/database.dart';
 
 import 'constants.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoadingTransaction(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: LoadingTransaction(),
+//     ),
+//   );
+// }
 
 class LoadingTransaction extends StatefulWidget {
-  const LoadingTransaction({Key? key}) : super(key: key);
+  final String packageID;
+
+  const LoadingTransaction({Key? key, required this.packageID});
 
   @override
-  State<LoadingTransaction> createState() => _LoadingTransactionState();
+  State<LoadingTransaction> createState() =>
+      _LoadingTransactionState(packageID: packageID);
 }
 
 class _LoadingTransactionState extends State<LoadingTransaction> {
+  final String packageID;
+
+  _LoadingTransactionState({required this.packageID});
+
   Future<String> getData() {
     return Future.delayed(Duration(seconds: 2), () {
       return "Payment Succeeded";
@@ -72,14 +80,15 @@ class _LoadingTransactionState extends State<LoadingTransaction> {
                         CustomBigButton(
                             label: "Back to Summary",
                             onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => RegisterAddress(
-                              //       customerID: customerID,
-                              //     ),
-                              //   ),
-                              // );
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PackageSummury(
+                                    packageID: packageID,
+                                  ),
+                                ),
+                                (route) => false,
+                              );
                             }),
                       ],
                     ),

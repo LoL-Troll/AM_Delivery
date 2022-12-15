@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
           color: Colors.amber,
         ),
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }

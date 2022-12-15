@@ -65,17 +65,17 @@ class _DetailedTrackState extends State<DetailedTrack> {
         );
         sub += "Package is on its way to a $hubType";
       } else {
-        if (eventType == "Airport") {
+        if (hubType == "Airport") {
           icon = Icon(
             Icons.airplanemode_active_outlined,
             color: Colors.white,
           );
-        } else if (eventType == "Retail Center") {
+        } else if (hubType == "Retail Center") {
           icon = Icon(
             Icons.shopping_basket_outlined,
             color: Colors.white,
           );
-        } else if (eventType == "Warehouse") {
+        } else if (hubType == "Warehouse") {
           icon = Icon(
             Icons.warehouse_outlined,
             color: Colors.white,
