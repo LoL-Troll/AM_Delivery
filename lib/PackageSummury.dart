@@ -171,27 +171,34 @@ class _PackageSummaryState extends State<PackageSummury> {
                 color: kPrimaryColor,
                 thickness: 2,
               ),
+              packageInfo["Payment_Status"] == 0
+                  ? CustomBigButton(
+                      // TODO DISABLE WHEN PAID
+                      label: "Pay Now",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentScreen(
+                              packageID: packageID,
+                              bill: 800, //TODO formula
+                            ),
+                          ),
+                        );
+                      })
+                  : SizedBox(), // TODO DISABLE WHEN PAID (NOT DONE YET)
               CustomBigButton(
-                  label: "Pay Now",
+                  label: "Track Package",
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PaymentScreen(
+                        builder: (context) => DetailedTrack(
                           packageID: packageID,
-                          bill: 800, //TODO formula
                         ),
                       ),
                     );
                   }),
-              CustomBigButton(label: "Track Package", onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailedTrack(packageID: packageID,),
-                  ),
-                );
-              }),
             ],
           ),
         ),

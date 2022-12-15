@@ -1,5 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
 import 'package:test_db/database.dart';
@@ -136,12 +137,37 @@ class _PackageSummaryState extends State<PaymentScreen> {
                     print(cardHolderName);
                     print(cvvCode);
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoadingTransaction(),
-                      ),
-                    );
+                    if (cardNumber.isNotEmpty &&
+                        expiryDate.isNotEmpty &&
+                        cardHolderName.isNotEmpty &&
+                        cvvCode.isNotEmpty) {
+                      Database.setPaidPackage(packageID: packageID);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              LoadingTransaction(packageID: packageID),
+                        ),
+                      );
+                    } else {
+                      Alert(
+                          context: context,
+                          title: "All Fields Must Be Filled",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ],
+                          style: AlertStyle(
+                            titleStyle: kHeading1TextStyle,
+                          )).show();
+                    }
                   }),
             ],
           ),

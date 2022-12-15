@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mysql_client/mysql_client.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/customWidgets.dart';
@@ -107,8 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     User.craeteObj(userInfo);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const Main()),
+                      MaterialPageRoute(builder: (context) => const Main()),
                     );
                   } catch (e) {
                     Alert(
@@ -118,8 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           DialogButton(
                             child: Text(
                               "OK",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () => Navigator.pop(context),
                             width: 120,
