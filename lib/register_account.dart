@@ -86,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               CustomInputTextField(
                 label: "Password",
-                obsureText: true,
+                obscureText: true,
                 controller: passwordController,
                 inputformatters: [LengthLimitingTextInputFormatter(50)],
               ), // Password

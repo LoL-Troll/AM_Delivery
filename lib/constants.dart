@@ -35,7 +35,7 @@ const kHeading1TextStyle = TextStyle(
 
 const kHeading2TextStyle = TextStyle(
   fontSize: 24.0,
-  fontFamily: "Times New Roman",
+  fontFamily: "Charger",
 );
 
 const kCaptionTextStyle = TextStyle(fontSize: 18);

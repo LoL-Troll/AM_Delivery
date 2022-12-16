@@ -10,14 +10,14 @@ class CustomInputTextField extends StatelessWidget {
   TextEditingController controller;
   TextInputType? keyboardtype = TextInputType.text;
   List<TextInputFormatter>? inputformatters;
-  bool? obsureText = false;
+  bool obscureText;
 
   CustomInputTextField({
     required this.label,
     required this.controller,
     this.keyboardtype,
     this.inputformatters,
-    this.obsureText,
+    this.obscureText = false,
   });
 
   @override
@@ -37,6 +37,7 @@ class CustomInputTextField extends StatelessWidget {
             inputFormatters: inputformatters,
             keyboardType: keyboardtype,
             controller: controller,
+            obscureText: obscureText,
             decoration: const InputDecoration(
               // errorText: "This Field Should Not Be Empty",
               border: OutlineInputBorder(),

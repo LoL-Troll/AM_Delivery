@@ -20,6 +20,7 @@ class _DetailedTrackState extends State<DetailedTrack> {
   String packageID;
   List<StepperData> items = [];
   int index = 0;
+  var x;
 
   _DetailedTrackState({required this.packageID});
 
@@ -45,7 +46,7 @@ class _DetailedTrackState extends State<DetailedTrack> {
 
     for (ResultSetRow r in result) {
       index++;
-      var x = await Database.getHub(HubID: r.assoc()["DestinationHub"]);
+      x = await Database.getHub(HubID: r.assoc()["DestinationHub"]);
       String activity = r.assoc()["Activity"]!;
       String eventType = r.assoc()["Type"]!;
       String hubType = x["Type"]!;
@@ -106,21 +107,41 @@ class _DetailedTrackState extends State<DetailedTrack> {
             )),
       );
     }
-    items.add(StepperData(
-        title: StepperText(
-          "Delivered",
-          textStyle: const TextStyle(
-            color: Colors.black,
+
+    if(x["Type"] == "Customer Address" && result.last.assoc()["Activity"]! == "Arrived"){
+      index++;
+      items.add(StepperData(
+          title: StepperText(
+            "Delivered",
+            textStyle: const TextStyle(
+              color: Colors.black,
+            ),
           ),
-        ),
-        subtitle: StepperText("Your order is delivered"),
-        iconWidget: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: const BoxDecoration(
-              color: kPrimaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(30))),
-          child: const Icon(Icons.check_outlined, color: Colors.green),
-        )));
+          subtitle: StepperText("Your order has been delivered"),
+          iconWidget: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            child: const Icon(Icons.check_outlined, color: Colors.white),
+          )));
+    }
+    else{
+      items.add(StepperData(
+          title: StepperText(
+            "Delivered",
+            textStyle: const TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          iconWidget: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            child: const Icon(Icons.check_outlined, color: Colors.green),
+          )));
+    }
 
     return items;
   }

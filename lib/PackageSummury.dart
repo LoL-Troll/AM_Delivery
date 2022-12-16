@@ -32,7 +32,8 @@ class _PackageSummaryState extends State<PackageSummury> {
   late Map<String, String?> packageInfo;
   late Map<String, String?> senderInfo;
   late Map<String, String?> receiverInfo;
-
+  late double deliveryCost;
+  late double insurance;
   _PackageSummaryState({required this.packageID});
 
   @override
@@ -53,6 +54,9 @@ class _PackageSummaryState extends State<PackageSummury> {
             receiverInfo = value;
           });
         });
+
+        deliveryCost = double.parse(packageInfo['Weight']!) * 0.5 + double.parse(packageInfo['Length']!) * 0.3 + double.parse(packageInfo['Width']!) * 0.3;
+        insurance = 0.3 * double.parse(packageInfo["item_Value"]!);
       });
     });
   }
@@ -106,8 +110,8 @@ class _PackageSummaryState extends State<PackageSummury> {
                 thickness: 2,
               ),
               CustomLabel(title: "Bill Info", label: """
-              Delivery Cost: XXXXX SAR
-              Insurance Cost: YYYYY SAR
+              Delivery Cost: $deliveryCost SAR
+              Insurance Cost: $insurance SAR
               -------------------
               Total Cost: XXXXX + YYYYY SAR
               """),
@@ -171,9 +175,8 @@ class _PackageSummaryState extends State<PackageSummury> {
                 color: kPrimaryColor,
                 thickness: 2,
               ),
-              packageInfo["Payment_Status"] == 0
+              packageInfo["Payment_Status"] == '0'
                   ? CustomBigButton(
-                      // TODO DISABLE WHEN PAID
                       label: "Pay Now",
                       onPressed: () {
                         Navigator.push(
@@ -181,7 +184,7 @@ class _PackageSummaryState extends State<PackageSummury> {
                           MaterialPageRoute(
                             builder: (context) => PaymentScreen(
                               packageID: packageID,
-                              bill: 800, //TODO formula
+                              bill: deliveryCost,
                             ),
                           ),
                         );
