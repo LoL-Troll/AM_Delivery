@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:test_db/EditAddress.dart';
+import 'package:test_db/EditPassword.dart';
 import 'package:test_db/User.dart';
 import 'package:test_db/database.dart';
 import 'customWidgets.dart';
-import 'User.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -23,7 +24,6 @@ class _EditProfileState extends State<EditProfile> {
       lName,
       gender = User.getInstance().sex == "M" ? "Male" : "Female",
       email,
-      password,
       phone;
 
   @override
@@ -101,7 +101,26 @@ class _EditProfileState extends State<EditProfile> {
                   //   email: email,
                   // );
                 },
-              )
+              ),
+              CustomBigButton(
+                label: "Change Password",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const EditPassword()),
+                  );
+                },
+              ),
+              CustomBigButton(
+                label: "Change Address",
+                onPressed: () {
+                  String? id = User.getInstance().userId;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditAddress(customerId: id)),
+                  );
+                },
+              ),
             ],
           ),
         ),

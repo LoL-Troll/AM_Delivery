@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql_client/src/mysql_client/connection.dart';
 import 'package:test_db/PackageSummury.dart';
-import 'package:test_db/User.dart';
 import 'package:test_db/customWidgets.dart';
-import 'package:test_db/database.dart';
+import 'package:test_db/main.dart';
 
 import 'constants.dart';
 
@@ -83,9 +81,7 @@ class _LoadingTransactionState extends State<LoadingTransaction> {
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => PackageSummury(
-                                    packageID: packageID,
-                                  ),
+                                  builder: (context) => Main(),
                                 ),
                                 (route) => false,
                               );

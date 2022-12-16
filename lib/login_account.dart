@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               CustomInputTextField(
                 label: "Password",
-                obsureText: true, // TODO BROKEN
+                obscureText: true,
                 controller: passwordController,
                 inputformatters: [LengthLimitingTextInputFormatter(50)],
               ), // Password

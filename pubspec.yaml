@@ -34,6 +34,18 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Charger
+      fonts:
+        - asset: fonts/Charger-XRDo.otf
+        - asset: fonts/ChargerBold-gXaY.otf
+        - asset: fonts/ChargerBoldItalic-oAqV.otf
+        - asset: fonts/ChargerExtrabold-4qG9.otf
+        - asset: fonts/ChargerExtraboldItalic-0qx4.otf
+        - asset: fonts/ChargerHemi-ePyx.otf
+        - asset: fonts/ChargerHemiRt-W9rz.otf
+        - asset: fonts/ChargerItalic-aw5x.otf
+          style: italic
 
   assets:
     - assets/

@@ -104,6 +104,26 @@ class Database {
     return hubID;
   }
 
+  static Future<String?> editHub({
+    required String country,
+    required String city,
+    required String street,
+    required String zip,
+    required String type,
+    required String hubId,
+  }) async {
+    await getConnection().then(
+          (conn) => conn.execute(
+        """
+        UPDATE HUB
+         SET Country = '$country', City = '$city', Street = '$street', Zip_code = '$zip', Type = '$type'
+         Where Hub_ID = $hubId;
+        """,
+      ),
+    );
+
+  }
+
   static Future<String?> addCustomerAddress({
     required String country,
     required String city,
@@ -130,6 +150,26 @@ class Database {
 
     return hubID;
   }
+
+  static void editCustomerAddress({
+    required String country,
+    required String city,
+    required String street,
+    required String zip,
+    required String hubId,
+  }) async {
+    await editHub(
+        country: country,
+        city: city,
+        street: street,
+        zip: zip,
+        type: "Customer Address",
+        hubId: hubId,
+        );
+  }
+
+
+
 
   static Future<Map<String, String?>> loginUser(
       {required String email, required String password}) async {
@@ -253,10 +293,31 @@ class Database {
     WHERE UserID = $id"""));
   }
 
+  static Future modifyCustomerPassword(User user) async {
+    String? password = user.password;
+    String? id = user.userId;
+
+    var x = await getConnection().then((conn) => conn.execute("""
+    UPDATE USER
+    SET Password = '$password'
+    WHERE UserID = $id"""));
+  }
+
+  static Future<Map<String, String?>> getCustomerAddress({required String customerId}) async {
+
+    var x = await getConnection().then((conn) => conn.execute("""
+    Select *
+    FROM CUSTOMER NATURAL JOIN CUSTOMER_ADDRESS NATURAL JOIN HUB
+    Where CustomerID = $customerId;"""));
+
+    return x.rows.first.assoc();
+  }
+
   static Future setPaidPackage({required String packageID}) async {
     var x = await getConnection().then((conn) => conn.execute("""
     UPDATE PACKAGE
     SET Payment_Status = 1
-    WHERE UserID = $packageID"""));
+    WHERE PackageID = $packageID"""));
   }
+
 }
