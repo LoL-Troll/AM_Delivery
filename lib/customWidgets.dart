@@ -103,8 +103,10 @@ class CustomDropdownButton extends StatelessWidget {
 class CustomBigButton extends StatelessWidget {
   late String label;
   late void Function() onPressed;
+  final IconData icon;
 
-  CustomBigButton({required this.label, required this.onPressed});
+  CustomBigButton(
+      {required this.label, required this.onPressed, this.icon = Icons.check});
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +129,8 @@ class CustomBigButton extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
               Padding(padding: EdgeInsets.all(5)),
-              const Icon(
-                Icons.check,
+              Icon(
+                icon,
                 color: Colors.white,
                 size: 50,
               ),
@@ -191,7 +193,7 @@ class CustomLabel2 extends StatelessWidget {
         children: [
           Text(
             title,
-            style: kHeading1TextStyle.copyWith(fontSize: 20),
+            style: kHeading1TextStyle.copyWith(fontSize: 22),
             softWrap: false,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -200,7 +202,7 @@ class CustomLabel2 extends StatelessWidget {
           Text(
             label,
             style: kHeading2TextStyle.copyWith(
-              fontSize: 18,
+              fontSize: 20,
               color: labelColor,
             ),
             textAlign: TextAlign.center,

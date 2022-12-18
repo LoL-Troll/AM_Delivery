@@ -92,33 +92,7 @@ class _EditProfileState extends State<EditProfile> {
                   user.sex = sex;
 
                   Database.modifyCustomerUser(user);
-                  // TODO create the editCustomerUser Method
-                  // Database.editCustomerUser(
-                  //   fName: fName,
-                  //   lName: lName,
-                  //   sex: sex,
-                  //   phone: phone,
-                  //   email: email,
-                  // );
-                },
-              ),
-              CustomBigButton(
-                label: "Change Password",
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const EditPassword()),
-                  );
-                },
-              ),
-              CustomBigButton(
-                label: "Change Address",
-                onPressed: () {
-                  String? id = User.getInstance().userId;
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditAddress(customerId: id)),
-                  );
+                  Navigator.pop(context);
                 },
               ),
             ],

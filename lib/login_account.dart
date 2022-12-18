@@ -23,6 +23,7 @@ class Login extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           color: kPrimaryColor,
+          titleTextStyle: kHeading1TextStyle,
         ),
         primarySwatch: MaterialColor(kDarkColor.value, color),
       ),
@@ -106,10 +107,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         email: email, password: password);
 
                     User.craeteObj(userInfo);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Main()),
-                    );
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Main()));
+
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const Main()),
+                    // );
                   } catch (e) {
                     Alert(
                         context: context,
