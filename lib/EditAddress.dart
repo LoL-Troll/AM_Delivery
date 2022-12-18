@@ -14,18 +14,14 @@ class EditAddress extends StatefulWidget {
   EditAddress({super.key, required this.customerId});
 
   @override
-  State<EditAddress> createState() =>
-      _EditAddressState(customerId: customerId);
+  State<EditAddress> createState() => _EditAddressState(customerId: customerId);
 }
 
 class _EditAddressState extends State<EditAddress> {
   String? customerId;
   String? countryValue, stateValue, cityValue;
 
-
-
   _EditAddressState({required this.customerId});
-
 
   Future<Map<String, String?>> getCustomerAddress() async {
     var x = await Database.getCustomerAddress(customerId: customerId!);
@@ -60,14 +56,12 @@ class _EditAddressState extends State<EditAddress> {
 
                     ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
                     disabledDropdownDecoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.grey.shade300)),
+                        border: Border.all(color: Colors.grey.shade300)),
 
                     ///placeholders for dropdown search field
                     countrySearchPlaceholder: "Country",
                     stateSearchPlaceholder: "State",
                     citySearchPlaceholder: "City",
-
 
                     ///labels for dropdown
                     countryDropdownLabel: "Country",
@@ -92,9 +86,8 @@ class _EditAddressState extends State<EditAddress> {
                     onCountryChanged: (value) {
                       setState(() {
                         ///store value in country variable
-                        countryValue = value
-                            .substring(value.indexOf(" "))
-                            .trim();
+                        countryValue =
+                            value.substring(value.indexOf(" ")).trim();
                       });
                     },
 
@@ -114,11 +107,9 @@ class _EditAddressState extends State<EditAddress> {
                       });
                     },
                   ),
-
                 ],
               ),
             ), // CustomCountryPicker
-
 
             FutureBuilder(
                 future: getCustomerAddress(),
@@ -136,12 +127,16 @@ class _EditAddressState extends State<EditAddress> {
                       // if we got our data
                     } else if (snapshot.hasData) {
                       // Extracting data from snapshot object
-                      Map<String, String?> data = snapshot.data as Map<String, String?>;
+                      Map<String, String?> data =
+                          snapshot.data as Map<String, String?>;
 
-                       final zipCodeController = TextEditingController(text: data["Zip_code"]);
+                      final zipCodeController =
+                          TextEditingController(text: data["Zip_code"]);
 
-                       final streetController = TextEditingController(text: data["Street"]);
-                       final houseNumberController = TextEditingController(text: data["HouseNumber"]);
+                      final streetController =
+                          TextEditingController(text: data["Street"]);
+                      final houseNumberController =
+                          TextEditingController(text: data["HouseNumber"]);
 
                       return SingleChildScrollView(
                         child: Container(
@@ -180,14 +175,7 @@ class _EditAddressState extends State<EditAddress> {
                                         street: streetController.text,
                                         zip: zipCodeController.text,
                                         hubId: data["Hub_ID"]!);
-
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => LoginScreen(),
-                                      ),
-                                      (route) => false,
-                                    );
+                                    Navigator.pop(context);
                                   } else {
                                     Alert(
                                         context: context,
@@ -200,7 +188,8 @@ class _EditAddressState extends State<EditAddress> {
                                                   color: Colors.white,
                                                   fontSize: 20),
                                             ),
-                                            onPressed: () => Navigator.pop(context),
+                                            onPressed: () =>
+                                                Navigator.pop(context),
                                             width: 120,
                                           )
                                         ],

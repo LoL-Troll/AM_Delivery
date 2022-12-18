@@ -13,9 +13,6 @@ dependencies:
     sdk: flutter
 
 
-
-
-
   cupertino_icons: ^1.0.2
   mysql_client: ^0.0.27
   barcode_widget: ^2.0.3
@@ -35,17 +32,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family: Charger
+    - family: coolvetica
       fonts:
-        - asset: fonts/Charger-XRDo.otf
-        - asset: fonts/ChargerBold-gXaY.otf
-        - asset: fonts/ChargerBoldItalic-oAqV.otf
-        - asset: fonts/ChargerExtrabold-4qG9.otf
-        - asset: fonts/ChargerExtraboldItalic-0qx4.otf
-        - asset: fonts/ChargerHemi-ePyx.otf
-        - asset: fonts/ChargerHemiRt-W9rz.otf
-        - asset: fonts/ChargerItalic-aw5x.otf
-          style: italic
+        - asset: fonts/coolvetica_compressed_hv.otf
+        - asset: fonts/coolvetica_condensed_rg.otf
+        - asset: fonts/coolvetica_crammed_rg.otf
+        - asset: fonts/coolvetica_rg.otf
+        - asset: fonts/coolvetica_rg_it.otf
+          style: normal
 
   assets:
     - assets/

@@ -23,19 +23,20 @@ const Color kDarkColor = Color(0xFF007387);
 
 const kTitleTextStyle = TextStyle(
   fontSize: 36.0,
-  fontFamily: "Charger",
-  fontWeight: FontWeight.bold,
+  fontFamily: "coolvetica",
 );
 
 const kHeading1TextStyle = TextStyle(
   fontSize: 26.0,
-  fontFamily: "Charger",
-  fontWeight: FontWeight.bold,
+  fontFamily: "coolvetica",
 );
 
 const kHeading2TextStyle = TextStyle(
   fontSize: 24.0,
-  fontFamily: "Charger",
+  fontFamily: "coolvetica",
 );
 
-const kCaptionTextStyle = TextStyle(fontSize: 18);
+const kCaptionTextStyle = TextStyle(
+  fontSize: 20,
+  fontFamily: "coolvetica",
+);

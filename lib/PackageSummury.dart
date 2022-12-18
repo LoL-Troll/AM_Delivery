@@ -55,7 +55,9 @@ class _PackageSummaryState extends State<PackageSummury> {
           });
         });
 
-        deliveryCost = double.parse(packageInfo['Weight']!) * 0.5 + double.parse(packageInfo['Length']!) * 0.3 + double.parse(packageInfo['Width']!) * 0.3;
+        deliveryCost = double.parse(packageInfo['Weight']!) * 0.5 +
+            double.parse(packageInfo['Length']!) * 0.3 +
+            double.parse(packageInfo['Width']!) * 0.3;
         insurance = 0.3 * double.parse(packageInfo["item_Value"]!);
       });
     });

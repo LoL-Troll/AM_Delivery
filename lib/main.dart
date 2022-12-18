@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:test_db/EditProfile.dart';
+import 'package:test_db/ProfileMenu.dart';
 import 'package:test_db/SendPackageUI.dart';
 import 'package:test_db/constants.dart';
 import 'package:test_db/track_package.dart';
@@ -26,7 +27,7 @@ class _MainState extends State<Main> {
     MyHomePage(),
     TrackPackage(),
     HistoryPackage(),
-    EditProfile()
+    ProfileMenu(),
   ];
 
   @override
@@ -259,7 +260,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        //TODO Make it go to the Normal Delivey page/Service
                         Navigator.push(
                           context,
                           MaterialPageRoute(

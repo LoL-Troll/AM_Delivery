@@ -64,6 +64,9 @@ class Database {
     DateTime deliveryDate = DateTime.now().add(
       Duration(days: expressShipping ? 5 : 10),
     );
+    String sendDateString =
+        "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+
     String deliveryDateString =
         "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}";
 
@@ -72,7 +75,7 @@ class Database {
         """
         INSERT INTO PACKAGE
         VALUES(0, 'In Transit', '$deliveryDateString', $width, $length, $height,
-        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE)""",
+        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE, '${sendDateString}'})""",
       ),
     );
 
@@ -113,7 +116,7 @@ class Database {
     required String hubId,
   }) async {
     await getConnection().then(
-          (conn) => conn.execute(
+      (conn) => conn.execute(
         """
         UPDATE HUB
          SET Country = '$country', City = '$city', Street = '$street', Zip_code = '$zip', Type = '$type'
@@ -121,7 +124,6 @@ class Database {
         """,
       ),
     );
-
   }
 
   static Future<String?> addCustomerAddress({
@@ -159,31 +161,29 @@ class Database {
     required String hubId,
   }) async {
     await editHub(
-        country: country,
-        city: city,
-        street: street,
-        zip: zip,
-        type: "Customer Address",
-        hubId: hubId,
-        );
+      country: country,
+      city: city,
+      street: street,
+      zip: zip,
+      type: "Customer Address",
+      hubId: hubId,
+    );
   }
-
-
-
 
   static Future<Map<String, String?>> loginUser(
       {required String email, required String password}) async {
     return (await getConnection().then((conn) => conn.execute("""
     SELECT *
-    FROM USER
-    WHERE email = '$email' AND password = '$password'"""))).rows.first.assoc();
+    FROM USER JOIN CUSTOMER
+    WHERE CUSTOMER.CustomerID = USER.UserID
+    AND email = '$email' AND password = '$password'"""))).rows.first.assoc();
   }
 
   static Future<String?> getUserIDFromPhone({required String phone}) async {
     return (await getConnection().then((conn) => conn.execute("""
     SELECT UserID
     FROM USER
-    WHERE Phone = $phone"""))).rows.first.assoc()["UserID"];
+    WHERE Phone = '$phone'"""))).rows.first.assoc()["UserID"];
   }
 
   static Future<String?> getUserIDFromEmail({required String email}) async {
@@ -303,8 +303,8 @@ class Database {
     WHERE UserID = $id"""));
   }
 
-  static Future<Map<String, String?>> getCustomerAddress({required String customerId}) async {
-
+  static Future<Map<String, String?>> getCustomerAddress(
+      {required String customerId}) async {
     var x = await getConnection().then((conn) => conn.execute("""
     Select *
     FROM CUSTOMER NATURAL JOIN CUSTOMER_ADDRESS NATURAL JOIN HUB
@@ -319,5 +319,4 @@ class Database {
     SET Payment_Status = 1
     WHERE PackageID = $packageID"""));
   }
-
 }

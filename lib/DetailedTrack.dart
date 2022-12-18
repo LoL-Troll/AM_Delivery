@@ -27,15 +27,17 @@ class _DetailedTrackState extends State<DetailedTrack> {
   Future<List<StepperData>> getPackageDetails() async {
     Iterable<ResultSetRow> result =
         await Database.getTrackingDetails(packageID: packageID);
+    print("VVVVVVVVVVVV");
+    print(result);
 
     items.add(StepperData(
         title: StepperText(
           "Order Placed",
-          textStyle: const TextStyle(
-            color: Colors.grey,
-          ),
+          textStyle: kHeading1TextStyle,
         ),
-        subtitle: StepperText("Your order has been placed"),
+        subtitle: StepperText(
+          "Your order has been placed",
+        ),
         iconWidget: Container(
           padding: const EdgeInsets.all(8),
           decoration: const BoxDecoration(
@@ -48,8 +50,10 @@ class _DetailedTrackState extends State<DetailedTrack> {
       index++;
       x = await Database.getHub(HubID: r.assoc()["DestinationHub"]);
       String activity = r.assoc()["Activity"]!;
+
       String eventType = r.assoc()["Type"]!;
       String hubType = x["Type"]!;
+
       String country = x["Country"]!;
       String city = x["City"]!;
       Icon icon;
@@ -108,14 +112,14 @@ class _DetailedTrackState extends State<DetailedTrack> {
       );
     }
 
-    if(x["Type"] == "Customer Address" && result.last.assoc()["Activity"]! == "Arrived"){
+    if (result.isNotEmpty &&
+        x["Type"] == "Customer Address" &&
+        result.last.assoc()["Activity"]! == "Arrived") {
       index++;
       items.add(StepperData(
           title: StepperText(
             "Delivered",
-            textStyle: const TextStyle(
-              color: Colors.black,
-            ),
+            textStyle: kHeading1TextStyle,
           ),
           subtitle: StepperText("Your order has been delivered"),
           iconWidget: Container(
@@ -125,14 +129,11 @@ class _DetailedTrackState extends State<DetailedTrack> {
                 borderRadius: BorderRadius.all(Radius.circular(30))),
             child: const Icon(Icons.check_outlined, color: Colors.white),
           )));
-    }
-    else{
+    } else {
       items.add(StepperData(
           title: StepperText(
             "Delivered",
-            textStyle: const TextStyle(
-              color: Colors.black,
-            ),
+            textStyle: kHeading1TextStyle,
           ),
           iconWidget: Container(
             padding: const EdgeInsets.all(8),
@@ -181,7 +182,7 @@ class _DetailedTrackState extends State<DetailedTrack> {
                     stepperList: data,
                     stepperDirection: Axis.vertical,
                     activeBarColor: kPrimaryColor,
-                    inActiveBarColor: Colors.black,
+                    inActiveBarColor: Colors.grey,
                     activeIndex: index,
                   );
                 }
