@@ -75,7 +75,7 @@ class Database {
         """
         INSERT INTO PACKAGE
         VALUES(0, 'In Transit', '$deliveryDateString', $width, $length, $height,
-        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE, '${sendDateString}'})""",
+        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE, '$sendDateString')""",
       ),
     );
 
