@@ -22,6 +22,7 @@ class PackageSummury extends StatefulWidget {
   const PackageSummury({super.key, required this.packageID});
 
   final String packageID;
+
   @override
   State<PackageSummury> createState() =>
       _PackageSummaryState(packageID: packageID);
@@ -34,6 +35,7 @@ class _PackageSummaryState extends State<PackageSummury> {
   late Map<String, String?> receiverInfo;
   late double deliveryCost;
   late double insurance;
+
   _PackageSummaryState({required this.packageID});
 
   @override
@@ -101,6 +103,10 @@ class _PackageSummaryState extends State<PackageSummury> {
                 label: packageInfo["Status"]!,
               ),
               CustomLabel(
+                title: "Package Created On",
+                label: packageInfo["Sent_Date"]!,
+              ),
+              CustomLabel(
                 title: "Estimated Delivery Date",
                 label: packageInfo["Expected_Delivery_Date"]!,
               ),
@@ -129,14 +135,29 @@ class _PackageSummaryState extends State<PackageSummury> {
                 style: kHeading1TextStyle.copyWith(fontSize: 30),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CustomLabel(
-                      title: "Length", label: packageInfo["Length"]! + " cm"),
-                  CustomLabel(
-                      title: "Width", label: packageInfo["Width"]! + " cm"),
-                  CustomLabel(
-                      title: "Height", label: packageInfo["Height"]! + " cm"),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomLabel(
+                          title: "Length",
+                          label: packageInfo["Length"]! + " cm"),
+                      CustomLabel(
+                          title: "Width", label: packageInfo["Width"]! + " cm"),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomLabel(
+                          title: "Height",
+                          label: packageInfo["Height"]! + " cm"),
+                      CustomLabel(
+                          title: "Weight",
+                          label: packageInfo["Weight"]! + " g"),
+                    ],
+                  ),
                 ],
               ),
               CustomLabel(title: "Catagory", label: packageInfo["Catagory"]!),

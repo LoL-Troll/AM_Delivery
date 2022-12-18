@@ -21,6 +21,8 @@ dependencies:
   flutter_credit_card: ^3.0.4
   rflutter_alert: ^2.0.4
   another_stepper: ^1.1.6
+  encrypt: ^5.0.1
+
 
 dev_dependencies:
   flutter_test:
