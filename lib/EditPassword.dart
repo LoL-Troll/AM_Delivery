@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'User.dart';
 import 'constants.dart';
 import 'customWidgets.dart';
@@ -19,8 +19,6 @@ class _EditPasswordState extends State<EditPassword> {
   final oldpassController = TextEditingController();
   final oldpass2Controller = TextEditingController();
   final newPassword = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,39 +59,44 @@ class _EditPasswordState extends State<EditPassword> {
                 label: "Confirm",
                 onPressed: () {
                   User user = User.getInstance();
-                    if((oldpassController.text == oldpass2Controller.text) && oldpassController.text == user.password && newPassword.text.isNotEmpty){
-                      user.password = newPassword.text;
-                      Database.modifyCustomerPassword(user);
-                      Navigator.pop(context);
-                    }
-                    else{
-                      Alert(
-                          context: context,
-                          title: "Please enter all of the above information correctly",
-                          buttons: [
-                            DialogButton(
-                              child: Text(
-                                "OK",
-                                style:
-                                TextStyle(color: Colors.white, fontSize: 20),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                              width: 120,
-                            )
-                          ],
-                          style: AlertStyle(
-                            titleStyle: kHeading1TextStyle,
-                          )).show();
-                    }
 
-                  // TODO create the editCustomerUser Method
-                  // Database.editCustomerUser(
-                  //   fName: fName,
-                  //   lName: lName,
-                  //   sex: sex,
-                  //   phone: phone,
-                  //   email: email,
-                  // );
+                  /// Encrypting the password
+                  final key =
+                      encrypt.Key.fromUtf8('my 32 length key................');
+                  final iv = encrypt.IV.fromLength(16);
+
+                  final encrypter = encrypt.Encrypter(encrypt.AES(key));
+                  final String encryptedOld1 =
+                      encrypter.encrypt(oldpassController.text, iv: iv).base64;
+                  final String encryptedOld2 =
+                      encrypter.encrypt(oldpass2Controller.text, iv: iv).base64;
+
+                  if ((encryptedOld1 == encryptedOld2) &&
+                      encryptedOld1 == user.password &&
+                      newPassword.text.isNotEmpty) {
+                    user.password = newPassword.text;
+                    Database.modifyCustomerPassword(user);
+                    Navigator.pop(context);
+                  } else {
+                    Alert(
+                        context: context,
+                        title:
+                            "Please enter all of the above information correctly",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "OK",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            width: 120,
+                          )
+                        ],
+                        style: AlertStyle(
+                          titleStyle: kHeading1TextStyle,
+                        )).show();
+                  }
                 },
               ),
             ],

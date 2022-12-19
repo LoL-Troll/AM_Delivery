@@ -326,6 +326,7 @@ class Database {
     UPDATE USER
     SET Password = '${encrypted.base64}'
     WHERE UserID = $id"""));
+    user.password = encrypted.base64;
   }
 
   static Future<Map<String, String?>> getCustomerAddress(
