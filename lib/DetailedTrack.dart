@@ -27,8 +27,7 @@ class _DetailedTrackState extends State<DetailedTrack> {
   Future<List<StepperData>> getPackageDetails() async {
     Iterable<ResultSetRow> result =
         await Database.getTrackingDetails(packageID: packageID);
-    print("VVVVVVVVVVVV");
-    print(result);
+
 
     items.add(StepperData(
         title: StepperText(
@@ -112,9 +111,54 @@ class _DetailedTrackState extends State<DetailedTrack> {
       );
     }
 
-    if (result.isNotEmpty &&
+    if (result.isNotEmpty && result.last.assoc()["Status"]! == "Lost") {
+      index++;
+      items.add(StepperData(
+          title: StepperText(
+            "Lost",
+            textStyle: kHeading1TextStyle,
+          ),
+          iconWidget: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            child:
+            const Icon(Icons.question_mark_outlined, color: Colors.white),
+          )));
+    } else if (result.isNotEmpty && result.last.assoc()["Status"]! == "Damaged") {
+      index++;
+      items.add(StepperData(
+          title: StepperText(
+            "Damaged",
+            textStyle: kHeading1TextStyle,
+          ),
+          iconWidget: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            child: const Icon(Icons.broken_image_outlined, color: Colors.white),
+          )));
+    } else if (result.isNotEmpty && result.last.assoc()["Status"]! == "Delayed") {
+      index++;
+      items.add(StepperData(
+          title: StepperText(
+            "Delayed",
+            textStyle: kHeading1TextStyle,
+          ),
+          iconWidget: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            child:
+            const Icon(Icons.query_builder_outlined, color: Colors.white),
+          )));
+    } else if (result.isNotEmpty &&
         x["Type"] == "Customer Address" &&
         result.last.assoc()["Activity"]! == "Arrived") {
+      result.last.assoc()["Status"] = "Arrived";
       index++;
       items.add(StepperData(
           title: StepperText(

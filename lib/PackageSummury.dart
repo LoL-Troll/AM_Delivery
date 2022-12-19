@@ -117,12 +117,14 @@ class _PackageSummaryState extends State<PackageSummury> {
                 color: kPrimaryColor,
                 thickness: 2,
               ),
-              CustomLabel(title: "Bill Info", label: """
-              Delivery Cost: $deliveryCost SAR
-              Insurance Cost: $insurance SAR
-              -------------------
-              Total Cost: XXXXX + YYYYY SAR
-              """),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("Bill Info: ", style: kHeading1TextStyle,),
+                  Text("Delivery Cost: $deliveryCost SAR", style: kHeading1TextStyle,),
+                  Text("Insurance Cost: $insurance SAR", style: kHeading1TextStyle,),
+                ],
+              ),
               const Divider(
                 height: 10,
                 indent: 30,

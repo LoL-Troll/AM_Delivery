@@ -167,6 +167,7 @@ class Database {
     required String street,
     required String zip,
     required String hubId,
+    required String HouseNum,
   }) async {
     await editHub(
       country: country,
@@ -176,6 +177,17 @@ class Database {
       type: "Customer Address",
       hubId: hubId,
     );
+
+    await getConnection().then(
+          (conn) => conn.execute(
+        """
+        UPDATE CUSTOMER_ADDRESS
+         SET HouseNumber = '$HouseNum'
+         Where CustomerID = ${User.getInstance().userId};
+        """,
+      ),
+    );
+
   }
 
   static Future<Map<String, String?>> loginUser(

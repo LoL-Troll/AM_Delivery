@@ -174,7 +174,8 @@ class _EditAddressState extends State<EditAddress> {
                                         city: cityValue!,
                                         street: streetController.text,
                                         zip: zipCodeController.text,
-                                        hubId: data["Hub_ID"]!);
+                                         HouseNum: houseNumberController.text,
+                                        hubId: data["Hub_ID"]!,);
                                     Navigator.pop(context);
                                   } else {
                                     Alert(
