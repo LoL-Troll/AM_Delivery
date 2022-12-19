@@ -73,6 +73,7 @@ class _SendPackageUI extends State<SendPackageUI> {
                 keyboardtype: TextInputType.number),
             CustomInputTextField(
                 label: "Item Weight (grams)",
+
                 controller: weightController,
                 keyboardtype: TextInputType.number),
             CustomDropdownButton(
