@@ -9,7 +9,6 @@ import 'HistoryPackage.dart';
 import 'PackageSummury.dart';
 import 'User.dart';
 
-// TODO NO NEED FOR THIS
 void main() {
   runApp(const MyApp());
 }
@@ -197,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         maxLines: 3,
                       ),
                       Text(
-                        "Enter the Tracking Number of your package",
+                        "Enter the Tracking Number of a package",
                         style: kCaptionTextStyle,
                       ),
                       TextField(
