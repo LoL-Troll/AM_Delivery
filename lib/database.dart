@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:encrypt/encrypt.dart';
 import 'package:mysql_client/mysql_client.dart';
 import 'package:test_db/User.dart';
 
@@ -32,9 +33,16 @@ class Database {
     required String email,
     required String password,
   }) async {
+    /// Encrypting the password
+    final key = Key.fromUtf8('my 32 length key................');
+    final iv = IV.fromLength(16);
+
+    final encrypter = Encrypter(AES(key));
+    final encrypted = encrypter.encrypt(password, iv: iv);
+
     await getConnection().then((conn) => conn.execute("""
     INSERT INTO USER
-    VALUES(0, '$fName', '$lName', '$sex', '$phone', '$email', '$password', 'Customer')"""));
+    VALUES(0, '$fName', '$lName', '$sex', '$phone', '$email', '${encrypted.base64}', 'Customer')"""));
 
     var id = (await getConnection().then((conn) => conn.execute("""
     SELECT UserID
@@ -75,7 +83,7 @@ class Database {
         """
         INSERT INTO PACKAGE
         VALUES(0, 'In Transit', '$deliveryDateString', $width, $length, $height,
-        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE, '$sendDateString')""",
+        $weight, $val, '$catagory', ${User.getInstance().userId}, $reciverID, FALSE, '${sendDateString}')""",
       ),
     );
 
@@ -172,11 +180,21 @@ class Database {
 
   static Future<Map<String, String?>> loginUser(
       {required String email, required String password}) async {
+    /// Encrypting the password
+    final key = Key.fromUtf8('my 32 length key................');
+    final iv = IV.fromLength(16);
+
+    final encrypter = Encrypter(AES(key));
+    final encrypted = encrypter.encrypt(password, iv: iv);
+
     return (await getConnection().then((conn) => conn.execute("""
     SELECT *
     FROM USER JOIN CUSTOMER
     WHERE CUSTOMER.CustomerID = USER.UserID
-    AND email = '$email' AND password = '$password'"""))).rows.first.assoc();
+    AND email = '$email' AND password = '${encrypted.base64}'""")))
+        .rows
+        .first
+        .assoc();
   }
 
   static Future<String?> getUserIDFromPhone({required String phone}) async {
@@ -297,10 +315,18 @@ class Database {
     String? password = user.password;
     String? id = user.userId;
 
+    /// Encrypting the password
+    final key = Key.fromUtf8('my 32 length key................');
+    final iv = IV.fromLength(16);
+
+    final encrypter = Encrypter(AES(key));
+    final encrypted = encrypter.encrypt(password!, iv: iv);
+
     var x = await getConnection().then((conn) => conn.execute("""
     UPDATE USER
-    SET Password = '$password'
+    SET Password = '${encrypted.base64}'
     WHERE UserID = $id"""));
+    user.password = encrypted.base64;
   }
 
   static Future<Map<String, String?>> getCustomerAddress(
