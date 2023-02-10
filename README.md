@@ -9,7 +9,9 @@ The report for this project can be found [here](https://drive.google.com/file/d/
 
 
 This project was done for a database course (ICS321).
-Written using Flutter framework. 
+
+Written using Flutter framework.
+
 Database impelemented using mySQL.
 
 Devoloped by Ahmad Alkhabbaz & Majed Bamardouf
