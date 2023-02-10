@@ -11,11 +11,11 @@ class Database {
     // Open a connection (testdb should already exist)
     if (!initialized) {
       conn = await MySQLConnection.createConnection(
-        host: '193.122.73.150',
+        host: // TODO,
         port: 3306,
-        userName: "Troll",
-        password: "Ics321#@!",
-        databaseName: "sql7581270", // optional
+        userName: // TODO,
+        password: // TODO,
+        databaseName: // TODO , // optional
       );
 
       initialized = true;
