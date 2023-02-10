@@ -1,6 +1,6 @@
 # AM delivery - Customer Application
 
-Package delivery application. 
+Package delivery application. \n
 Supports creating accounts, monitoring package route, changing address, sending and receiving packages, paying fees, viewing package summary, scanning package barcode, viewing package history, and more.
 
 
