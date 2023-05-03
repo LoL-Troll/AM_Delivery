@@ -8,7 +8,6 @@ Admin application can be found [here](https://github.com/LoL-Troll/AM_Delivery_A
 The report for this project can be found [here](https://drive.google.com/file/d/1rXjcCzdZAjpLD3AFnaSbMIFxf4v12yF0/view?usp=sharing)  
 
 
-This project was done for a database course (ICS321).  
 Written using Flutter framework.  
 Database impelemented using mySQL.  
 
